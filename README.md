@@ -47,7 +47,8 @@ Astra ID delivers a premium cyber-security inspired authentication experience wi
 
 📬 Contact
 
-🌐 quantastraai.in
+🌐 https://quantastraai.in
+
 ✉️ quantastraai@gmail.com
 
 
