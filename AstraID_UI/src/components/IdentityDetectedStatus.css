@@ -1,0 +1,102 @@
+.identity-detected {
+  margin: 0.7rem 0 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0;
+  border: none;
+  background: none;
+  box-shadow: none;
+  text-align: center;
+}
+
+.identity-detected__label,
+.identity-detected__label--type {
+  font-family:
+    ui-monospace,
+    'Cascadia Code',
+    'Consolas',
+    'Courier New',
+    monospace;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
+}
+
+.identity-detected--detecting .identity-detected__label,
+.identity-detected--detecting .identity-detected__label--type {
+  color: var(--accent);
+  text-shadow: 0 0 12px rgba(201, 169, 98, 0.2);
+}
+
+[data-theme='light'] .identity-detected--detecting .identity-detected__label,
+[data-theme='light'] .identity-detected--detecting .identity-detected__label--type {
+  text-shadow: none;
+}
+
+.identity-detected--detected .identity-detected__label {
+  color: var(--status-text);
+  text-shadow: none;
+  transition: color 0.35s ease;
+}
+
+.identity-detected--detecting .blinking-dots__dot {
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.identity-detected--detected .blinking-dots__dot {
+  color: var(--status-text);
+}
+
+.blinking-dots--static .blinking-dots__dot {
+  animation: none;
+  opacity: 1;
+}
+
+.identity-detected__check-wrap {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.5rem;
+  animation: identity-detected-check-in 0.35s ease forwards;
+}
+
+.identity-detected--detecting .identity-detected__check-wrap {
+  color: var(--accent);
+}
+
+.identity-detected--detected .identity-detected__check-wrap {
+  color: var(--status-text);
+  transition: color 0.35s ease;
+}
+
+.identity-detected__check {
+  display: block;
+}
+
+@keyframes identity-detected-check-in {
+  from {
+    opacity: 0;
+    transform: translateX(-4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .identity-detected__check-wrap {
+    animation: none;
+  }
+
+  .identity-detected--detected .identity-detected__label,
+  .identity-detected--detected .identity-detected__check-wrap {
+    transition: none;
+  }
+}

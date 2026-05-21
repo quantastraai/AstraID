@@ -31,7 +31,7 @@ function GoldenShieldIcon() {
   )
 }
 
-export function LoginIntroSequence({ onSecureAccess, onHeroReady }) {
+export function LoginIntroSequence({ onSecureAccess, onHeroReady, accessPhase = 'idle' }) {
   const [loopKey, setLoopKey] = useState(0)
   const [phase, setPhase] = useState('init')
   const [showInitDots, setShowInitDots] = useState(false)
@@ -102,10 +102,19 @@ export function LoginIntroSequence({ onSecureAccess, onHeroReady }) {
 
   const trustedFlashing = phase === 'trusted-flash'
 
+  const heroExiting = accessPhase === 'exiting' || accessPhase === 'auth'
+
   if (showHero) {
     return (
-      <div className="login-intro login-intro--hero-mode" aria-live="polite">
-        <LoginHero visible onSecureAccess={onSecureAccess} />
+      <div
+        className={`login-intro login-intro--hero-mode${heroExiting ? ' login-intro--hero-exit' : ''}`}
+        aria-live="polite"
+      >
+        <LoginHero
+          visible
+          exiting={heroExiting}
+          onSecureAccess={onSecureAccess}
+        />
       </div>
     )
   }

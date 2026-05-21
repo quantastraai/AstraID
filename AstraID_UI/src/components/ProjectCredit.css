@@ -14,6 +14,16 @@
   gap: 0.75rem;
 }
 
+.app-shell:has(.identity-auth-view) .project-credit {
+  position: relative;
+  z-index: 4;
+}
+
+.app-shell:has(.create-identity-page) .project-credit {
+  flex-shrink: 0;
+  padding-top: 0.35rem;
+}
+
 .project-credit__links {
   display: flex;
   align-items: center;

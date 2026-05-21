@@ -17,6 +17,33 @@
   display: flex;
   margin: 0;
   animation: login-scan-panel-in 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+  transition:
+    width 1.05s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1.05s cubic-bezier(0.22, 1, 0.36, 1),
+    gap 1.05s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.login-scan-panel--expand {
+  width: min(27rem, 48vw) !important;
+  gap: 0.85rem !important;
+  transform: translateY(-50%) translateX(-4px) scale(1.1) !important;
+  z-index: 3;
+}
+
+.login-scan-panel--expand .login-scan-visual__frame {
+  max-width: 17.25rem;
+  transition: max-width 1.05s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.login-scan-panel--expand .login-scan-visual__label {
+  transition: transform 1.05s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: scale(1.03);
+}
+
+.login-scan-panel--expand .login-scan-terminal {
+  transform: scale(1.05);
+  transition: transform 1.05s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .login:has(.login-intro--hero-mode) .login-scan-visual {

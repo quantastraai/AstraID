@@ -4,14 +4,37 @@
   flex-direction: column;
   width: 100%;
   min-height: 0;
-  overflow-y: auto;
-  padding: 1.5rem 1.25rem 0;
+  overflow: hidden;
+  padding: 0.5rem 1.25rem 0;
   box-sizing: border-box;
+  opacity: 0;
+}
+
+.create-identity-page--entered {
+  animation: create-identity-page-enter 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes create-identity-page-enter {
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .create-identity-page {
+    opacity: 1;
+    transform: none;
+  }
+
+  .create-identity-page--entered {
+    animation: none;
+  }
 }
 
 .create-identity-page__intro {
+  flex-shrink: 0;
   text-align: center;
-  padding: 0 1rem;
+  padding: 0.25rem 1rem 0;
 }
 
 .create-identity-page__title {
@@ -73,13 +96,9 @@
 }
 
 .create-identity-page__actions {
-  margin-top: 1.35rem;
+  margin-top: 1rem;
   display: flex;
   justify-content: center;
-}
-
-.create-identity-page--name-entry .create-identity-page__intro {
-  flex-shrink: 0;
 }
 
 .create-identity-page__intro--hidden {
@@ -119,10 +138,11 @@
   min-height: 0;
   padding: 0 1.25rem;
   box-sizing: border-box;
+  overflow: hidden;
 }
 
-.create-identity-page--name-entry .create-identity-page__content {
-  flex: 0 0 auto;
+.create-identity-page--name-entry .create-identity-page__name-center {
+  padding-bottom: 4.75rem;
 }
 
 .visually-hidden {
@@ -690,12 +710,31 @@
 }
 
 .create-identity-page__content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
-  width: 100%;
+  position: fixed;
+  left: 50%;
+  bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+  z-index: 3;
+  transform: translateX(-50%);
+  width: calc(100% - 2.5rem);
+  max-width: 22rem;
+  margin: 0;
   padding: 0;
-  transform: translateY(0.85rem);
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.create-identity-page__content .login-trust-carousel {
+  pointer-events: auto;
+}
+
+.create-identity-page__content .login-trust-carousel__dots {
+  margin-top: 0.2rem;
+  margin-bottom: 0.15rem;
+}
+
+@media (max-width: 520px) {
+  .create-identity-page__content {
+    bottom: calc(2.55rem + env(safe-area-inset-bottom, 0px));
+  }
 }

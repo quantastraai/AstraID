@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { BlinkingDots } from './BlinkingDots'
 import { TypewriterText } from './TypewriterText'
 import './EncryptionProcessingStep.css'
@@ -9,7 +9,8 @@ const PROCESS_STEPS = [
   'Encrypting Credentials...',
   'Establishing Zero-Trust Authentication....',
 ]
-const STEP_LOADING_MS = 3000
+const STEP_LOADING_MS = 2800
+const STEP_DONE_MS = 320
 
 function StepCheckIcon() {
   return (
@@ -33,48 +34,51 @@ function StepCheckIcon() {
 }
 
 export function EncryptionProcessingStep({ onComplete }) {
+  const onCompleteRef = useRef(onComplete)
+  onCompleteRef.current = onComplete
+
   const [titleReady, setTitleReady] = useState(false)
   const [currentStep, setCurrentStep] = useState(-1)
-  const [stepPhase, setStepPhase] = useState('typing')
+  const [stepPhase, setStepPhase] = useState('idle')
 
-  useEffect(() => {
-    if (!titleReady) return
+  const handleTitleReady = useCallback(() => {
+    setTitleReady(true)
     setCurrentStep(0)
     setStepPhase('typing')
-  }, [titleReady])
+  }, [])
+
+  const handleStepTypeComplete = useCallback(() => {
+    setStepPhase('loading')
+  }, [])
 
   useEffect(() => {
-    if (currentStep < 0 || stepPhase !== 'loading') return undefined
+    if (!titleReady || currentStep < 0) return undefined
+    if (stepPhase !== 'loading') return undefined
 
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const delay = prefersReduced ? 0 : STEP_LOADING_MS
+    const delay = prefersReduced ? 450 : STEP_LOADING_MS
 
     const timerId = window.setTimeout(() => {
       setStepPhase('done')
     }, delay)
 
     return () => window.clearTimeout(timerId)
-  }, [currentStep, stepPhase])
+  }, [titleReady, currentStep, stepPhase])
 
   useEffect(() => {
-    if (stepPhase !== 'done' || currentStep < 0) return undefined
-
-    if (currentStep >= PROCESS_STEPS.length - 1) {
-      const timerId = window.setTimeout(() => onComplete?.(), 700)
-      return () => window.clearTimeout(timerId)
-    }
+    if (!titleReady || currentStep < 0 || stepPhase !== 'done') return undefined
 
     const timerId = window.setTimeout(() => {
-      setCurrentStep((i) => i + 1)
+      if (currentStep >= PROCESS_STEPS.length - 1) {
+        onCompleteRef.current?.()
+        return
+      }
+      setCurrentStep((index) => index + 1)
       setStepPhase('typing')
-    }, 280)
+    }, STEP_DONE_MS)
 
     return () => window.clearTimeout(timerId)
-  }, [stepPhase, currentStep, onComplete])
-
-  function handleStepTypeComplete() {
-    setStepPhase('loading')
-  }
+  }, [titleReady, currentStep, stepPhase])
 
   return (
     <div className="encryption-processing">
@@ -84,7 +88,7 @@ export function EncryptionProcessingStep({ onComplete }) {
           speed={30}
           startDelay={100}
           className="encryption-processing__title-type"
-          onComplete={() => setTitleReady(true)}
+          onComplete={handleTitleReady}
         />
       </p>
 
@@ -97,39 +101,40 @@ export function EncryptionProcessingStep({ onComplete }) {
             <span className="encryption-processing__terminal-label">astra-vault.sh</span>
           </div>
           <ul className="encryption-processing__steps">
-          {PROCESS_STEPS.map((text, index) => {
-            const isPast = index < currentStep
-            const isCurrent = index === currentStep
-            if (!isPast && !isCurrent) return null
+            {PROCESS_STEPS.map((text, index) => {
+              const isPast = index < currentStep
+              const isCurrent = index === currentStep
+              if (!isPast && !isCurrent) return null
 
-            const status = isPast ? 'done' : stepPhase
+              const status = isPast ? 'done' : stepPhase
 
-            return (
-              <li key={text} className={`encryption-step encryption-step--${status}`}>
-                <div className="encryption-step__row">
-                  <span className="encryption-step__prefix" aria-hidden>
-                    &gt;
-                  </span>
-                  {status === 'typing' ? (
-                    <TypewriterText
-                      text={text}
-                      speed={26}
-                      className="encryption-step__type"
-                      onComplete={handleStepTypeComplete}
-                    />
-                  ) : (
-                    <span className="encryption-step__text">{text}</span>
-                  )}
-                  {status === 'loading' ? <BlinkingDots /> : null}
-                  {status === 'done' ? (
-                    <span className="encryption-step__check">
-                      <StepCheckIcon />
+              return (
+                <li key={text} className={`encryption-step encryption-step--${status}`}>
+                  <div className="encryption-step__row">
+                    <span className="encryption-step__prefix" aria-hidden>
+                      &gt;
                     </span>
-                  ) : null}
-                </div>
-              </li>
-            )
-          })}
+                    {status === 'typing' ? (
+                      <TypewriterText
+                        key={`step-type-${index}`}
+                        text={text}
+                        speed={26}
+                        className="encryption-step__type"
+                        onComplete={handleStepTypeComplete}
+                      />
+                    ) : (
+                      <span className="encryption-step__text">{text}</span>
+                    )}
+                    {status === 'loading' ? <BlinkingDots /> : null}
+                    {status === 'done' ? (
+                      <span className="encryption-step__check">
+                        <StepCheckIcon />
+                      </span>
+                    ) : null}
+                  </div>
+                </li>
+              )
+            })}
           </ul>
         </div>
       ) : (

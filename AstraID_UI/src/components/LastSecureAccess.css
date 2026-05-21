@@ -78,6 +78,15 @@
   }
 }
 
+/* Hide during Secure Access handoff (same as create-identity tooltip) */
+.app-shell:has(.login[data-access-phase='exiting']) .last-access,
+.app-shell:has(.login[data-access-phase='auth']) .last-access {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .last-access {
     transition: none;
@@ -87,5 +96,12 @@
     opacity: 1;
     visibility: visible;
     transform: none;
+  }
+
+  .app-shell:has(.login[data-access-phase='exiting']) .last-access,
+  .app-shell:has(.login[data-access-phase='auth']) .last-access {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
   }
 }

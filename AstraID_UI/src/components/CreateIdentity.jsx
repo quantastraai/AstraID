@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { BlinkingDots } from './BlinkingDots'
 import { LoginTrust } from './LoginTrust'
 import { EncryptionProcessingStep } from './EncryptionProcessingStep'
@@ -208,7 +208,13 @@ const TUNNEL_PHASE_MS = 5000
 const PROGRESS_NEXT_CLICKS = 4
 const PROGRESS_PER_NEXT = 100 / PROGRESS_NEXT_CLICKS
 
-export function CreateIdentity({ theme = 'dark', onIdentityProgress, onAccessWorkspace }) {
+export function CreateIdentity({
+  theme = 'dark',
+  entered = true,
+  onDraftChange,
+  onIdentityProgress,
+  onAccessWorkspace,
+}) {
   const prevInitPhaseRef = useRef('idle')
   const [progressNextCount, setProgressNextCount] = useState(0)
   const [showSubtitle, setShowSubtitle] = useState(false)
@@ -231,6 +237,10 @@ export function CreateIdentity({ theme = 'dark', onIdentityProgress, onAccessWor
   const [showConfirmPasswordText, setShowConfirmPasswordText] = useState(false)
   const [showAesMessage, setShowAesMessage] = useState(false)
   const [aesMessageReady, setAesMessageReady] = useState(false)
+
+  useEffect(() => {
+    onDraftChange?.({ name, email })
+  }, [name, email, onDraftChange])
 
   const hasName = name.trim().length > 0
   const hasValidEmail = isValidEmail(email)
@@ -367,6 +377,10 @@ export function CreateIdentity({ theme = 'dark', onIdentityProgress, onAccessWor
     setShowCreatePasswordFields(true)
     retreatIdentityProgress()
   }
+
+  const handleEncryptionComplete = useCallback(() => {
+    setFormStep('identity-provisioned')
+  }, [])
 
   function handleConfirmPasswordNext() {
     setFormStep('encryption-processing')
@@ -630,7 +644,10 @@ export function CreateIdentity({ theme = 'dark', onIdentityProgress, onAccessWor
     if (formStep === 'confirm-password') return renderConfirmPasswordStep()
     if (formStep === 'encryption-processing') {
       return (
-        <EncryptionProcessingStep onComplete={() => setFormStep('identity-provisioned')} />
+        <EncryptionProcessingStep
+          key="encryption-processing"
+          onComplete={handleEncryptionComplete}
+        />
       )
     }
 
@@ -699,46 +716,50 @@ export function CreateIdentity({ theme = 'dark', onIdentityProgress, onAccessWor
     formStep === 'encryption-processing' || formStep === 'identity-provisioned'
 
   return (
-    <section
-      className={`create-identity-page${isNameEntry ? ' create-identity-page--name-entry' : ''}${hideTopHeadings ? ' create-identity-page--encryption create-identity-page--provisioned' : ''}`}
-      aria-labelledby={hideTopHeadings ? undefined : 'create-identity-heading'}
-    >
-      <header
-        className={`create-identity-page__intro${hideTopHeadings ? ' create-identity-page__intro--hidden' : ''}`}
+    <>
+      <section
+        className={`create-identity-page${entered ? ' create-identity-page--entered' : ''}${isNameEntry ? ' create-identity-page--name-entry' : ''}${hideTopHeadings ? ' create-identity-page--encryption create-identity-page--provisioned' : ''}`}
+        aria-labelledby={hideTopHeadings ? undefined : 'create-identity-heading'}
       >
-        <h1 id="create-identity-heading" className="create-identity-page__title">
-          <TypewriterText
-            text={TITLE_TEXT}
-            speed={38}
-            className="create-identity-page__title-type"
-            onComplete={() => setShowSubtitle(true)}
-          />
-        </h1>
-        <p className="create-identity-page__subtitle">
-          {showSubtitle ? (
+        <header
+          className={`create-identity-page__intro${hideTopHeadings ? ' create-identity-page__intro--hidden' : ''}`}
+        >
+          <h1 id="create-identity-heading" className="create-identity-page__title">
             <TypewriterText
-              text={SUBTITLE_TEXT}
-              speed={28}
-              startDelay={180}
-              className="create-identity-page__subtitle-type"
-              onComplete={() => setShowButton(true)}
+              text={TITLE_TEXT}
+              speed={38}
+              className="create-identity-page__title-type"
+              onComplete={() => setShowSubtitle(true)}
             />
-          ) : (
-            <span className="create-identity-page__subtitle-placeholder" aria-hidden="true">
-              {SUBTITLE_TEXT}
-            </span>
-          )}
-        </p>
-        {!isNameEntry ? (
-          <div className="create-identity-page__actions">{renderActions()}</div>
+          </h1>
+          <p className="create-identity-page__subtitle">
+            {showSubtitle ? (
+              <TypewriterText
+                text={SUBTITLE_TEXT}
+                speed={28}
+                startDelay={180}
+                className="create-identity-page__subtitle-type"
+                onComplete={() => setShowButton(true)}
+              />
+            ) : (
+              <span className="create-identity-page__subtitle-placeholder" aria-hidden="true">
+                {SUBTITLE_TEXT}
+              </span>
+            )}
+          </p>
+          {!isNameEntry ? (
+            <div className="create-identity-page__actions">{renderActions()}</div>
+          ) : null}
+        </header>
+        {isNameEntry ? (
+          <div className="create-identity-page__name-center">{renderNameForm()}</div>
         ) : null}
-      </header>
-      {isNameEntry ? (
-        <div className="create-identity-page__name-center">{renderNameForm()}</div>
+      </section>
+      {formStep !== 'identity-provisioned' ? (
+        <div className="create-identity-page__content">
+          <LoginTrust />
+        </div>
       ) : null}
-      <div className="create-identity-page__content">
-        <LoginTrust />
-      </div>
-    </section>
+    </>
   )
 }

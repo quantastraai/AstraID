@@ -42,9 +42,12 @@ function HolographicFace() {
   )
 }
 
-function IdentityScanVisual() {
+function IdentityScanVisual({ topDown = false }) {
   return (
-    <div className="login-scan-visual" aria-hidden>
+    <div
+      className={`login-scan-visual${topDown ? ' login-scan-visual--topdown' : ''}`}
+      aria-hidden
+    >
       <div className="login-scan-visual__frame">
         <div className="login-scan-visual__holo" />
         <div className="login-scan-visual__grid" />
@@ -179,14 +182,23 @@ function LoginScanTerminal({ active }) {
   )
 }
 
-export function LoginScanPanel({ active = false }) {
+export function LoginScanPanel({
+  active = false,
+  expanding = false,
+  topDownScan = false,
+  layout = 'default',
+}) {
+  const panelClass = [
+    'login-scan-panel',
+    expanding ? ' login-scan-panel--expand' : '',
+    layout === 'auth' ? ' login-scan-panel--auth' : '',
+  ]
+    .filter(Boolean)
+    .join('')
+
   return (
-    <aside
-      className="login-scan-panel"
-      aria-label="Identity scan"
-      aria-hidden={!active}
-    >
-      <IdentityScanVisual />
+    <aside className={panelClass} aria-label="Identity scan" aria-hidden={!active}>
+      <IdentityScanVisual topDown={topDownScan} />
       <LoginScanTerminal active={active} />
     </aside>
   )

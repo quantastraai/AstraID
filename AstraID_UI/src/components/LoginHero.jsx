@@ -1,9 +1,9 @@
 import './LoginHero.css'
 
-export function LoginHero({ visible = false, onSecureAccess }) {
+export function LoginHero({ visible = false, exiting = false, onSecureAccess }) {
   return (
     <div
-      className={`login-hero${visible ? ' login-hero--visible' : ''}`}
+      className={`login-hero${visible ? ' login-hero--visible' : ''}${exiting ? ' login-hero--exit' : ''}`}
       aria-hidden={!visible}
     >
       <div className="login-hero__head">
@@ -31,8 +31,8 @@ export function LoginHero({ visible = false, onSecureAccess }) {
         <button
           type="button"
           className="login-hero__secure-btn"
-          onClick={onSecureAccess}
-          disabled={!visible}
+        onClick={onSecureAccess}
+        disabled={!visible || exiting}
         >
           <span className="login-hero__secure-btn-border" aria-hidden />
           <span className="login-hero__secure-btn-shimmer" aria-hidden />

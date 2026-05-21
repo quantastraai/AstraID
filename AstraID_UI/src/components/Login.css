@@ -235,9 +235,57 @@
   }
 }
 
+/* Secure Access transition */
+.login__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  opacity: 0;
+  background: rgba(2, 6, 13, 0);
+  backdrop-filter: blur(0);
+  -webkit-backdrop-filter: blur(0);
+  transition:
+    opacity 0.72s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.72s cubic-bezier(0.22, 1, 0.36, 1),
+    backdrop-filter 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.login__backdrop--active {
+  opacity: 1;
+  background: rgba(2, 6, 13, 0.5);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+}
+
+[data-theme='light'] .login__backdrop--active {
+  background: rgba(230, 238, 240, 0.55);
+}
+
+.login--phase-exiting .login__center-glow,
+.login--phase-auth .login__center-glow {
+  opacity: 0;
+  transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.login__content--hidden {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .login__center-glow-ring {
     animation: none !important;
     transform: translate(-50%, -50%);
+  }
+
+  .login__backdrop {
+    transition: none;
+  }
+
+  .login__backdrop--active {
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
   }
 }

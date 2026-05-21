@@ -20,6 +20,17 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  transition:
+    opacity 0.58s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.58s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.login-intro--hero-exit {
+  opacity: 0;
+  transform: translateY(-14px) scale(0.97);
+  filter: blur(5px);
+  pointer-events: none;
 }
 
 .login-intro__panel {
@@ -149,6 +160,13 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .login-intro--hero-exit {
+    opacity: 0;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+
   .login-intro__line--flash .login-intro__type--trusted,
   .login-intro__line--flash .login-intro__shield-icon {
     animation: none;
