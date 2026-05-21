@@ -1,0 +1,105 @@
+/* Full-page cyber background — opacity kept within 0.03–0.06 */
+
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Dotted grid + radial mesh */
+body::before {
+  background-image:
+    radial-gradient(
+      ellipse 88% 75% at 50% 42%,
+      rgba(110, 231, 168, 0.06) 0%,
+      rgba(201, 169, 98, 0.03) 38%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 120% 100% at 50% 100%,
+      rgba(110, 231, 168, 0.035) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at center,
+      rgba(110, 231, 168, 0.05) 0.75px,
+      transparent 0.75px
+    );
+  background-size:
+    100% 100%,
+    100% 100%,
+    28px 28px;
+  background-position: center, center, 0 0;
+}
+
+/* Scan lines */
+body::after {
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0,
+      transparent 55px,
+      rgba(110, 231, 168, 0.03) 56px,
+      rgba(110, 231, 168, 0.045) 57px,
+      transparent 58px,
+      transparent 113px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 111px,
+      rgba(201, 169, 98, 0.028) 112px,
+      rgba(201, 169, 98, 0.04) 113px,
+      transparent 114px,
+      transparent 223px
+    );
+  background-size:
+    100% 114px,
+    224px 100%;
+}
+
+[data-theme='light'] body::before {
+  background-image:
+    radial-gradient(
+      ellipse 88% 75% at 50% 42%,
+      rgba(34, 120, 90, 0.045) 0%,
+      rgba(154, 123, 60, 0.028) 38%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 120% 100% at 50% 100%,
+      rgba(60, 100, 115, 0.03) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at center,
+      rgba(70, 95, 105, 0.04) 0.75px,
+      transparent 0.75px
+    );
+}
+
+[data-theme='light'] body::after {
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0,
+      transparent 55px,
+      rgba(50, 90, 80, 0.03) 56px,
+      rgba(50, 90, 80, 0.042) 57px,
+      transparent 58px,
+      transparent 113px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 111px,
+      rgba(120, 100, 70, 0.026) 112px,
+      rgba(120, 100, 70, 0.038) 113px,
+      transparent 114px,
+      transparent 223px
+    );
+}
+

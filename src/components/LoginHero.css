@@ -1,0 +1,610 @@
+.login-hero {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 0;
+  text-align: center;
+  font-family:
+    ui-monospace,
+    'Cascadia Code',
+    'Consolas',
+    'Courier New',
+    monospace;
+  opacity: 0;
+  transform: translateY(14px) scale(0.98);
+  filter: blur(6px);
+  pointer-events: none;
+}
+
+.login-hero--visible {
+  pointer-events: auto;
+  animation: login-hero-enter 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes login-hero-enter {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+.login-hero__head {
+  position: absolute;
+  top: 13%;
+  left: 50%;
+  z-index: 1;
+  width: 100%;
+  transform: translateX(-50%);
+}
+
+.login-hero__actions {
+  position: absolute;
+  top: 46%;
+  left: 50%;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  transform: translate(-50%, -50%);
+}
+
+.login-hero__title {
+  margin: 0;
+  font-family:
+    ui-monospace,
+    'Cascadia Code',
+    'Consolas',
+    'Courier New',
+    monospace;
+  font-size: clamp(0.95rem, 3.9vw, 1.22rem);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-primary);
+}
+
+.login-hero__word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.85rem) rotateX(12deg);
+  transform-origin: center bottom;
+}
+
+.login-hero--visible .login-hero__word {
+  animation: login-hero-word-in 0.72s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: calc(0.35s + (var(--hero-i, 0) * 0.14s));
+}
+
+@keyframes login-hero-word-in {
+  to {
+    opacity: 1;
+    transform: translateY(0) rotateX(0deg);
+  }
+}
+
+.login-hero__word--accent {
+  background: linear-gradient(
+    105deg,
+    var(--accent) 0%,
+    #f0e2b8 38%,
+    var(--accent-hover) 62%,
+    var(--accent) 100%
+  );
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.login-hero--visible .login-hero__word--accent {
+  animation:
+    login-hero-word-in 0.72s cubic-bezier(0.16, 1, 0.3, 1) forwards,
+    login-hero-shimmer 3.2s ease-in-out 1.1s infinite;
+  animation-delay:
+    calc(0.35s + (var(--hero-i, 0) * 0.14s)),
+    1.1s;
+}
+
+@keyframes login-hero-shimmer {
+  0%,
+  100% {
+    background-position: 0% center;
+  }
+
+  50% {
+    background-position: 100% center;
+  }
+}
+
+.login-hero__rule {
+  width: 0;
+  height: 1px;
+  margin: 0.5rem auto 0.55rem;
+  border: none;
+  border-radius: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(201, 169, 98, 0.2) 18%,
+    rgba(224, 200, 138, 0.9) 50%,
+    rgba(201, 169, 98, 0.2) 82%,
+    transparent 100%
+  );
+  box-shadow:
+    0 0 5px rgba(201, 169, 98, 0.28),
+    0 0 10px rgba(201, 169, 98, 0.12),
+    0 1px 0 rgba(224, 200, 138, 0.2);
+  opacity: 0.92;
+}
+
+[data-theme='light'] .login-hero__rule {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(154, 123, 60, 0.22) 18%,
+    rgba(154, 123, 60, 0.75) 50%,
+    rgba(154, 123, 60, 0.22) 82%,
+    transparent 100%
+  );
+  box-shadow:
+    0 0 4px rgba(154, 123, 60, 0.22),
+    0 0 8px rgba(154, 123, 60, 0.1);
+}
+
+.login-hero--visible .login-hero__rule {
+  animation: login-hero-rule-draw 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.72s forwards;
+}
+
+@keyframes login-hero-rule-draw {
+  to {
+    width: min(12rem, 72%);
+  }
+}
+
+.login-hero__subtitle {
+  margin: 0;
+  overflow: hidden;
+}
+
+.login-hero__subtitle-text {
+  display: inline-block;
+  font-family: inherit;
+  font-size: clamp(0.72rem, 2.6vw, 0.875rem);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  opacity: 0;
+  clip-path: inset(0 100% 0 0);
+  transform: translateX(-0.35rem);
+  filter: blur(3px);
+}
+
+.login-hero--visible .login-hero__subtitle-text {
+  animation: login-hero-subtitle-reveal 1.05s cubic-bezier(0.16, 1, 0.3, 1) 0.95s forwards;
+}
+
+@keyframes login-hero-subtitle-reveal {
+  0% {
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);
+    transform: translateX(-0.35rem);
+    filter: blur(3px);
+    letter-spacing: 0.38em;
+  }
+
+  60% {
+    opacity: 1;
+    filter: blur(0);
+  }
+
+  100% {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    transform: translateX(0);
+    filter: blur(0);
+    letter-spacing: 0.26em;
+    color: var(--status-detail);
+  }
+}
+
+.login-hero__secure-btn {
+  position: relative;
+  margin-top: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.72rem 1.35rem;
+  border: 1px solid rgba(201, 169, 98, 0.45);
+  border-radius: 10px;
+  background: rgba(201, 169, 98, 0.08);
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1) 1.65s,
+    transform 0.55s cubic-bezier(0.16, 1, 0.3, 1) 1.65s,
+    background 0.25s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.login-hero__secure-btn-border {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  border: 1px solid rgba(201, 169, 98, 0.4);
+  box-shadow: none;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.login-hero__secure-btn-shimmer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    transparent 38%,
+    rgba(224, 200, 138, 0.35) 48%,
+    rgba(201, 169, 98, 0.55) 52%,
+    rgba(224, 200, 138, 0.35) 58%,
+    transparent 68%,
+    transparent 100%
+  );
+  background-size: 220% 100%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.login-hero__secure-btn-glow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 0;
+  width: 40%;
+  height: 80%;
+  margin: 0;
+  transform: translate(-50%, -50%) scale(0.35);
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse 80% 100% at 50% 50%,
+    rgba(224, 200, 138, 0.45) 0%,
+    rgba(201, 169, 98, 0.2) 42%,
+    transparent 72%
+  );
+  opacity: 0;
+  pointer-events: none;
+}
+
+.login-hero--visible .login-hero__secure-btn {
+  pointer-events: auto;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes login-hero-secure-btn-shimmer {
+  0% {
+    background-position: 130% 0;
+    opacity: 0;
+  }
+
+  18% {
+    opacity: 1;
+  }
+
+  50% {
+    background-position: -30% 0;
+    opacity: 1;
+  }
+
+  82% {
+    opacity: 0.35;
+  }
+
+  100% {
+    background-position: -130% 0;
+    opacity: 0;
+  }
+}
+
+@keyframes login-hero-secure-btn-glow {
+  0%,
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.4);
+  }
+
+  50% {
+    opacity: 0.85;
+    transform: translate(-50%, -50%) scale(1.35);
+  }
+}
+
+@keyframes login-hero-secure-btn-border-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    border-color: rgba(201, 169, 98, 0.45);
+    box-shadow: 0 0 0 rgba(201, 169, 98, 0);
+  }
+
+  50% {
+    opacity: 1;
+    border-color: rgba(224, 200, 138, 0.95);
+    box-shadow:
+      0 0 20px rgba(201, 169, 98, 0.32),
+      0 0 8px rgba(224, 200, 138, 0.18),
+      inset 0 0 12px rgba(201, 169, 98, 0.08);
+  }
+}
+
+@keyframes login-hero-secure-btn-arrow {
+  0%,
+  100% {
+    transform: translateX(0);
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: translateX(5px);
+    opacity: 1;
+  }
+}
+
+.login-hero--visible .login-hero__secure-btn:hover:not(:disabled),
+.login-hero--visible .login-hero__secure-btn:focus-visible:not(:disabled) {
+  background: rgba(201, 169, 98, 0.18);
+  border-color: rgba(201, 169, 98, 0.55);
+  box-shadow: 0 0 14px rgba(201, 169, 98, 0.15);
+}
+
+.login-hero--visible .login-hero__secure-btn:hover:not(:disabled) .login-hero__secure-btn-border,
+.login-hero--visible .login-hero__secure-btn:focus-visible:not(:disabled) .login-hero__secure-btn-border {
+  opacity: 1;
+  animation: login-hero-secure-btn-border-pulse 2.4s cubic-bezier(0.37, 0, 0.63, 1) infinite;
+}
+
+.login-hero--visible .login-hero__secure-btn:hover:not(:disabled) .login-hero__secure-btn-shimmer,
+.login-hero--visible .login-hero__secure-btn:focus-visible:not(:disabled) .login-hero__secure-btn-shimmer {
+  animation: login-hero-secure-btn-shimmer 2.4s ease-in-out infinite;
+}
+
+.login-hero--visible .login-hero__secure-btn:hover:not(:disabled) .login-hero__secure-btn-glow,
+.login-hero--visible .login-hero__secure-btn:focus-visible:not(:disabled) .login-hero__secure-btn-glow {
+  animation: login-hero-secure-btn-glow 2.8s ease-in-out infinite;
+}
+
+.login-hero--visible .login-hero__secure-btn:hover:not(:disabled) .login-hero__secure-btn-arrow,
+.login-hero--visible .login-hero__secure-btn:focus-visible:not(:disabled) .login-hero__secure-btn-arrow {
+  animation: login-hero-secure-btn-arrow 2s ease-in-out infinite;
+}
+
+.login-hero__secure-btn:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+.login-hero__secure-btn:disabled {
+  cursor: default;
+}
+
+.login-hero__secure-btn-text {
+  position: relative;
+  z-index: 1;
+  font-family: inherit;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.login-hero__secure-btn-arrow {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.login-hero__footnote {
+  position: absolute;
+  top: calc(46% + 1.65rem);
+  left: 50%;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.28rem;
+  width: 100%;
+  max-width: 16rem;
+  margin: 0;
+  transform: translateX(-50%);
+  overflow: hidden;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.55s ease 2s;
+}
+
+.login-hero--visible .login-hero__footnote {
+  opacity: 1;
+}
+
+.login-hero__footnote-shimmer {
+  position: absolute;
+  top: -10%;
+  bottom: -10%;
+  left: -55%;
+  width: 42%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(201, 169, 98, 0.05) 28%,
+    rgba(240, 225, 180, 0.55) 50%,
+    rgba(224, 200, 138, 0.35) 58%,
+    rgba(201, 169, 98, 0.05) 72%,
+    transparent 100%
+  );
+  filter: blur(0.5px);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.login-hero--visible .login-hero__footnote-shimmer {
+  animation: login-hero-footnote-scan 4s ease-in-out infinite;
+}
+
+@keyframes login-hero-footnote-scan {
+  0%,
+  72%,
+  100% {
+    left: -55%;
+    opacity: 0;
+  }
+
+  8% {
+    opacity: 0.35;
+  }
+
+  18% {
+    opacity: 1;
+  }
+
+  38% {
+    left: 115%;
+    opacity: 1;
+  }
+
+  48% {
+    left: 115%;
+    opacity: 0;
+  }
+}
+
+.login-hero__footnote-line {
+  position: relative;
+  z-index: 2;
+  display: block;
+  font-family:
+    ui-monospace,
+    'Cascadia Code',
+    'Consolas',
+    'Courier New',
+    monospace;
+  font-size: clamp(0.4375rem, 1.35vw, 0.5rem);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  line-height: 1.45;
+  text-transform: uppercase;
+  color: rgba(201, 169, 98, 0.78);
+  text-shadow: 0 0 10px rgba(201, 169, 98, 0.08);
+  white-space: nowrap;
+}
+
+.login-hero__footnote-line:last-child {
+  letter-spacing: 0.11em;
+  color: rgba(201, 169, 98, 0.68);
+}
+
+[data-theme='light'] .login-hero__footnote-line {
+  color: rgba(122, 98, 48, 0.82);
+  text-shadow: none;
+}
+
+[data-theme='light'] .login-hero__footnote-line:last-child {
+  color: rgba(122, 98, 48, 0.72);
+}
+
+[data-theme='light'] .login-hero__secure-btn {
+  background: rgba(154, 123, 60, 0.1);
+  border-color: rgba(154, 123, 60, 0.35);
+}
+
+[data-theme='light'] .login-hero--visible .login-hero__secure-btn:hover:not(:disabled) .login-hero__secure-btn-border,
+[data-theme='light'] .login-hero--visible .login-hero__secure-btn:focus-visible:not(:disabled) .login-hero__secure-btn-border {
+  animation: login-hero-secure-btn-border-pulse-light 2.4s cubic-bezier(0.37, 0, 0.63, 1) infinite;
+}
+
+@keyframes login-hero-secure-btn-border-pulse-light {
+  0%,
+  100% {
+    opacity: 0.35;
+    border-color: rgba(154, 123, 60, 0.4);
+    box-shadow: 0 0 0 rgba(154, 123, 60, 0);
+  }
+
+  50% {
+    opacity: 1;
+    border-color: rgba(154, 123, 60, 0.85);
+    box-shadow: 0 0 18px rgba(154, 123, 60, 0.28);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .login-hero,
+  .login-hero__word,
+  .login-hero__rule,
+  .login-hero__subtitle-text {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+    filter: none;
+    clip-path: none;
+  }
+
+  .login-hero__rule {
+    width: min(12rem, 72%);
+  }
+
+  .login-hero__word--accent {
+    color: var(--accent);
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+  }
+
+  .login-hero__secure-btn {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+    animation: none;
+  }
+
+  .login-hero__footnote {
+    opacity: 1;
+    transition: none;
+  }
+
+  .login-hero__footnote-shimmer {
+    animation: none;
+    opacity: 0;
+  }
+
+  .login-hero__secure-btn-shimmer,
+  .login-hero__secure-btn-glow,
+  .login-hero__secure-btn-border {
+    animation: none;
+    opacity: 0;
+  }
+
+  .login-hero__secure-btn-arrow {
+    animation: none;
+    transform: none;
+  }
+}

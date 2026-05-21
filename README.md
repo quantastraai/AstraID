@@ -1,49 +1,16 @@
-# 🚀 Astra ID
+# React + Vite
 
-A futuristic digital identity infrastructure UI built with React + Vite.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Astra ID delivers a premium cyber-security inspired authentication experience with cinematic visuals, glassmorphism effects, advanced animations, and modern secure-access aesthetics.
+Currently, two official plugins are available:
 
----
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-## ✨ Features
+## React Compiler
 
-- ⚡ React + Vite Architecture
-- 🌌 Futuristic Cyber UI
-- 🧊 Premium Glassmorphism
-- 🎇 Animated Particle Background
-- 🛡 Secure Identity Theme
-- 💡 Dynamic Dark / Light Theme
-- ✨ Neon Glow Effects
-- 🧠 Identity Scan Interface
-- 🔐 Quantum Security Inspired Design
-- 🎨 Figma-Level UI Polish
-- 📱 Fully Responsive Layout
-- 🚀 Production Ready Frontend
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
----
+## Expanding the ESLint configuration
 
-## 🖼 UI Highlights
-
-- Floating cyber cards
-- Animated grid background
-- Smooth hover interactions
-- Premium CTA buttons
-- Secure terminal simulation
-- Identity scan visualizer
-- Modern SaaS-style aesthetics
-
----
-
-## 🛠 Tech Stack
-
-- React.js
-- Vite
-- Tailwind CSS
-- Framer Motion
-- CSS Animations
-
----
-
-© License
-MIT License © QuantAstraAI
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
