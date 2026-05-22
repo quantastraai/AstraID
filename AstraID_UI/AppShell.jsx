@@ -13,6 +13,7 @@ export function AppShell({
   onThemeChange,
   children,
   loginView = false,
+  loginSecureBlur = false,
   showLastAccess = true,
   showIdentityProgress = false,
   identityPercent = 0,
@@ -29,8 +30,11 @@ export function AppShell({
 
   return (
     <div
-      className={`app-shell${loginView ? ' app-shell--login' : ''}${dashboardCardOverlay ? ' app-shell--card-overlay' : ''}`}
+      className={`app-shell${loginView ? ' app-shell--login' : ''}${loginSecureBlur ? ' app-shell--secure-blur' : ''}${dashboardCardOverlay ? ' app-shell--card-overlay' : ''}`}
     >
+      {loginSecureBlur ? (
+        <div className="app-shell__secure-dim" aria-hidden />
+      ) : null}
       {dashboardCardOverlay ? (
         <div className="app-shell__card-backdrop" aria-hidden />
       ) : null}

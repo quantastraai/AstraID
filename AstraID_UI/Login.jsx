@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { createPortal } from 'react-dom'
 import { IdentityAuthPanel } from './IdentityAuthPanel'
 import { LoginIntroSequence } from './LoginIntroSequence'
 import { LoginScanPanel } from './LoginScanPanel'
@@ -11,7 +10,7 @@ const PANEL_SLIDE_MS = 1050
 const PANEL_HOLD_MS = 3000
 const HANDOFF_MS = 400
 
-export function Login({ onSecureAccess }) {
+export function Login({ onSecureAccess, onSecureBlurChange }) {
   const [heroReady, setHeroReady] = useState(false)
   const [accessPhase, setAccessPhase] = useState('idle')
   const timersRef = useRef([])
@@ -44,14 +43,16 @@ export function Login({ onSecureAccess }) {
 
   const isTransitioning = accessPhase === 'exiting' || accessPhase === 'auth'
   const showAuthPanel = accessPhase === 'auth'
-  const portalRoot =
-    typeof document !== 'undefined' ? document.getElementById('root') : null
 
-  const loginBackdrop = (
-    <div
-      className={`login__backdrop${isTransitioning ? ' login__backdrop--active' : ''}`}
-      aria-hidden
-    />
+  useEffect(() => {
+    onSecureBlurChange?.(isTransitioning)
+  }, [isTransitioning, onSecureBlurChange])
+
+  useEffect(
+    () => () => {
+      onSecureBlurChange?.(false)
+    },
+    [onSecureBlurChange],
   )
 
   return (
@@ -60,8 +61,6 @@ export function Login({ onSecureAccess }) {
       aria-label="Security"
       data-access-phase={accessPhase}
     >
-      {portalRoot ? createPortal(loginBackdrop, portalRoot) : loginBackdrop}
-
       <div className="login__layout">
         <div className="login__center">
           <div className="login__center-glow" aria-hidden>

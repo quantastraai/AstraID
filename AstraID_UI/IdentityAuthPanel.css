@@ -20,12 +20,6 @@
   pointer-events: auto;
 }
 
-/* backdrop-filter on same element as transform — child glass blur fails in prod WebKit */
-.identity-auth-panel--visible:not(.identity-auth-panel--center):not(.identity-auth-panel--clear) {
-  -webkit-backdrop-filter: blur(22px) saturate(1.35);
-  backdrop-filter: blur(22px) saturate(1.35);
-}
-
 .identity-auth-panel--center {
   position: relative;
   left: auto;
@@ -160,7 +154,7 @@
   overflow: hidden;
   border-radius: 18px 18px 14px 14px;
   padding: 1.15rem 1.2rem 1.1rem;
-  background: rgba(12, 18, 28, 0.52);
+  background: rgba(12, 18, 28, 0.78);
   border: 1px solid rgba(201, 169, 98, 0.28);
   box-shadow:
     0 -8px 40px rgba(0, 0, 0, 0.45),

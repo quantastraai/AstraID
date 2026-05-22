@@ -127,6 +127,20 @@ function App() {
   const isCreateView = view === 'create-identity'
   const isLoginView =
     !isAuthenticated && !isAuthView && !isCreateView
+  const [loginSecureBlur, setLoginSecureBlur] = useState(false)
+
+  useEffect(() => {
+    if (!isLoginView) setLoginSecureBlur(false)
+  }, [isLoginView])
+
+  useEffect(() => {
+    if (loginSecureBlur) {
+      document.documentElement.setAttribute('data-secure-blur', '')
+    } else {
+      document.documentElement.removeAttribute('data-secure-blur')
+    }
+    return () => document.documentElement.removeAttribute('data-secure-blur')
+  }, [loginSecureBlur])
   const [createEntered, setCreateEntered] = useState(false)
 
   useLayoutEffect(() => {
@@ -305,7 +319,12 @@ function App() {
         />
       )
     }
-    return <Login onSecureAccess={() => navigateView('identity-auth')} />
+    return (
+      <Login
+        onSecureAccess={() => navigateView('identity-auth')}
+        onSecureBlurChange={setLoginSecureBlur}
+      />
+    )
   }
 
   return (
@@ -314,6 +333,7 @@ function App() {
       theme={theme}
       onThemeChange={setTheme}
       loginView={isLoginView}
+      loginSecureBlur={loginSecureBlur}
       showLastAccess={!isAuthenticated && !isCreateView && !isAuthView}
       showAuthTooltip={!isAuthenticated && !isAuthView}
       tooltipMode={isCreateView ? 'authenticate' : 'welcome'}

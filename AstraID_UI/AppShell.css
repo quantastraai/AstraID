@@ -15,10 +15,57 @@
   overflow: hidden;
 }
 
-/* Login secure-access blur: portal on #root + overflow visible (no :has — prod-safe) */
+/* Login secure-access: overflow visible + filter blur (prod-safe, not backdrop-filter) */
 .app-shell--login,
 .app-shell--login .app-shell__main {
   overflow: visible;
+}
+
+.app-shell__secure-dim {
+  position: fixed;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  background: rgba(2, 6, 13, 0.5);
+  animation: app-shell-secure-dim-in 0.72s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+[data-theme='light'] .app-shell__secure-dim {
+  background: rgba(230, 238, 240, 0.55);
+}
+
+@keyframes app-shell-secure-dim-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.app-shell--secure-blur .brand-bar,
+.app-shell--secure-blur .last-access,
+.app-shell--secure-blur .project-credit,
+.app-shell--secure-blur .create-tooltip {
+  filter: blur(14px) saturate(1.2);
+  transition: filter 0.72s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: filter;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-shell__secure-dim {
+    animation: none;
+    opacity: 1;
+  }
+
+  .app-shell--secure-blur .brand-bar,
+  .app-shell--secure-blur .last-secure-access,
+  .app-shell--secure-blur .project-credit,
+  .app-shell--secure-blur .create-tooltip {
+    filter: blur(6px);
+    transition: none;
+  }
 }
 
 .app-shell--card-overlay {
