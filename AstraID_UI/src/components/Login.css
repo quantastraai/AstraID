@@ -10,7 +10,7 @@
   padding: 0 1.25rem;
   box-sizing: border-box;
   min-height: 0;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .login__center-glow {
@@ -174,6 +174,7 @@
   max-width: 54rem;
   margin: 0 auto;
   min-height: 0;
+  overflow: hidden;
 }
 
 .login:has(.login-intro--hero-mode) .login__layout {
@@ -235,7 +236,7 @@
   }
 }
 
-/* Secure Access transition */
+/* Secure Access transition — must paint above page, below auth panel (z-index 6) */
 .login__backdrop {
   position: fixed;
   inset: 0;
@@ -243,12 +244,17 @@
   pointer-events: none;
   opacity: 0;
   background: rgba(2, 6, 13, 0);
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   backdrop-filter: blur(0);
   -webkit-backdrop-filter: blur(0);
   transition:
     opacity 0.72s cubic-bezier(0.22, 1, 0.36, 1),
     background 0.72s cubic-bezier(0.22, 1, 0.36, 1),
-    backdrop-filter 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+    backdrop-filter 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+    -webkit-backdrop-filter 0.85s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .login__backdrop--active {
@@ -256,6 +262,18 @@
   background: rgba(2, 6, 13, 0.5);
   backdrop-filter: blur(14px) saturate(1.2);
   -webkit-backdrop-filter: blur(14px) saturate(1.2);
+}
+
+@supports not (
+  (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))
+) {
+  .login__backdrop--active {
+    background: rgba(2, 6, 13, 0.78);
+  }
+
+  [data-theme='light'] .login__backdrop--active {
+    background: rgba(230, 238, 240, 0.82);
+  }
 }
 
 [data-theme='light'] .login__backdrop--active {

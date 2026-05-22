@@ -15,6 +15,16 @@
   overflow: hidden;
 }
 
+/* Login secure-access blur uses position:fixed + backdrop-filter */
+.app-shell:has(.login),
+.app-shell:has(.login) .app-shell__main {
+  overflow: visible;
+}
+
+.app-shell--card-overlay {
+  overflow: visible;
+}
+
 .brand-bar {
   position: relative;
   display: flex;
@@ -115,12 +125,17 @@
   pointer-events: none;
   opacity: 0;
   background: rgba(2, 6, 13, 0);
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   backdrop-filter: blur(0);
   -webkit-backdrop-filter: blur(0);
   transition:
     opacity 0.72s cubic-bezier(0.22, 1, 0.36, 1),
     background 0.72s cubic-bezier(0.22, 1, 0.36, 1),
-    backdrop-filter 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+    backdrop-filter 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+    -webkit-backdrop-filter 0.85s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .app-shell--card-overlay .app-shell__card-backdrop {
