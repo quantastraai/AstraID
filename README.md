@@ -45,12 +45,21 @@ Astra ID delivers a premium cyber-security inspired authentication experience wi
 
 ---
 
+🚧 Ongoing Development
+
+Backend authentication and security modules in progress.
+
+---
+
 📬 Contact
 
 🌐 https://quantastraai.in
-
 ✉️ quantastraai@gmail.com
 
+---
 
 © License
-MIT License © QuantAstraAI
+This project is licensed under the MIT License.
+---
+
+Made AstraID with ❤️ by QuantAstraAI
