@@ -1,0 +1,285 @@
+.identity-provisioned {
+  width: 100%;
+  max-width: 20rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.identity-provisioned__success {
+  margin: 0 0 1.75rem;
+  min-height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.identity-provisioned__success-type {
+  font-family:
+    ui-monospace,
+    'Cascadia Code',
+    'Consolas',
+    'Courier New',
+    monospace;
+  font-size: clamp(0.7rem, 2.6vw, 0.8125rem);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--status-text);
+}
+
+.identity-provisioned__success--flash .identity-provisioned__success-type {
+  animation: identity-success-flash 1.1s ease-in-out 2;
+}
+
+@keyframes identity-success-flash {
+  0%,
+  100% {
+    opacity: 0.55;
+    filter: brightness(0.9);
+  }
+
+  50% {
+    opacity: 1;
+    filter: brightness(1.25);
+    text-shadow: 0 0 18px rgba(110, 231, 168, 0.55);
+  }
+}
+
+.identity-provisioned__card-placeholder {
+  width: 100%;
+  margin-top: 0;
+  visibility: hidden;
+}
+
+.identity-provisioned__card-slot {
+  margin-top: 0;
+}
+
+.identity-provisioned__workspace-btn {
+  margin-top: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.7rem 1.25rem;
+  border: 1px solid rgba(94, 184, 154, 0.45);
+  border-radius: 10px;
+  background: rgba(94, 184, 154, 0.1);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  animation:
+    identity-btn-in 0.45s ease forwards,
+    identity-btn-glow 2.6s ease-in-out 0.55s infinite;
+}
+
+.identity-provisioned__workspace-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(110, 231, 168, 0.12) 45%,
+    rgba(110, 231, 168, 0.22) 50%,
+    rgba(110, 231, 168, 0.12) 55%,
+    transparent 100%
+  );
+  transform: translateX(-120%);
+  animation: identity-btn-shimmer 3.2s ease-in-out 0.8s infinite;
+  pointer-events: none;
+}
+
+@keyframes identity-btn-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes identity-btn-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 14px rgba(94, 184, 154, 0.12);
+  }
+
+  50% {
+    box-shadow:
+      0 0 26px rgba(94, 184, 154, 0.32),
+      0 0 10px rgba(110, 231, 168, 0.18);
+  }
+}
+
+@keyframes identity-btn-shimmer {
+  0% {
+    transform: translateX(-120%);
+  }
+
+  55%,
+  100% {
+    transform: translateX(120%);
+  }
+}
+
+.identity-provisioned__workspace-btn:hover {
+  background: rgba(94, 184, 154, 0.2);
+  border-color: var(--status-text);
+  box-shadow: 0 0 24px rgba(94, 184, 154, 0.28);
+  transform: translateY(-2px);
+}
+
+.identity-provisioned__workspace-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.identity-provisioned__workspace-btn:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+.identity-provisioned__workspace-btn-type,
+.identity-provisioned__workspace-arrow {
+  position: relative;
+  z-index: 1;
+}
+
+.identity-provisioned__workspace-btn-type {
+  font-family:
+    ui-monospace,
+    'Cascadia Code',
+    'Consolas',
+    'Courier New',
+    monospace;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--status-text);
+}
+
+.identity-provisioned__workspace-arrow {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--status-text);
+  line-height: 1;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.identity-provisioned__workspace-btn:hover .identity-provisioned__workspace-arrow {
+  transform: translateX(5px);
+}
+
+[data-theme='light'] .identity-provisioned__workspace-btn {
+  background: rgba(34, 160, 107, 0.1);
+  border-color: rgba(34, 160, 107, 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .identity-provisioned__success--flash .identity-provisioned__success-type {
+    animation: none;
+    opacity: 1;
+  }
+
+  .identity-provisioned__workspace-btn {
+    animation: identity-btn-in 0.45s ease forwards;
+  }
+
+  .identity-provisioned__workspace-btn::before {
+    animation: none;
+    display: none;
+  }
+}
+
+@media (max-width: 520px) {
+  /* Android phone: provisioned card — match post-login Astra ID dimensions */
+  html.platform-android .identity-provisioned {
+    width: 100%;
+    max-width: min(20rem, 92vw);
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html.platform-android .identity-provisioned__success {
+    margin-bottom: 1.75rem;
+  }
+
+  html.platform-android .identity-provisioned__card-slot {
+    width: 100%;
+  }
+
+  html.platform-android .identity-provisioned .astra-identity-card {
+    width: 100%;
+    max-width: min(20rem, 92vw);
+    border-radius: 14px;
+  }
+
+  html.platform-android .identity-provisioned .astra-identity-card__inner {
+    padding: 0.72rem 0.95rem 0.78rem;
+    border-radius: 13px;
+  }
+
+  html.platform-android .identity-provisioned .astra-identity-card__head {
+    margin-bottom: 0.42rem;
+  }
+
+  html.platform-android .identity-provisioned .astra-identity-card__logo-wrap {
+    height: 1.1rem;
+    max-width: 3.75rem;
+  }
+
+  html.platform-android .identity-provisioned .astra-identity-card__chip {
+    width: 1.6rem;
+    height: 1.1rem;
+  }
+
+  html.platform-android .identity-provisioned .astra-identity-card__id {
+    margin-bottom: 0.55rem;
+    font-size: clamp(0.84rem, 3.5vw, 1rem);
+    letter-spacing: 0.1em;
+    line-height: 1.15;
+  }
+
+  html.platform-android .identity-provisioned .astra-identity-card__meta {
+    gap: 0.28rem;
+  }
+
+  html.platform-android .identity-provisioned .astra-identity-card__row {
+    grid-template-columns: 3.75rem 1fr;
+    gap: 0.32rem;
+    font-size: 0.5rem;
+    letter-spacing: 0.03em;
+  }
+
+  html.platform-android .identity-provisioned .astra-identity-card__row dd {
+    line-height: 1.25;
+  }
+
+  html.platform-android .identity-provisioned .astra-identity-card__row:nth-child(2) dd {
+    font-size: 0.46rem;
+    letter-spacing: 0.015em;
+  }
+
+  html.platform-android .identity-provisioned__workspace-btn {
+    margin-top: 1.25rem;
+    padding: 0.7rem 1.25rem;
+  }
+
+  html.platform-android .identity-provisioned__workspace-btn-type {
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+  }
+}

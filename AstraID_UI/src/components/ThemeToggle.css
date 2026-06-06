@@ -1,0 +1,190 @@
+.theme-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--focus-ring, rgba(201, 169, 98, 0.65));
+  outline-offset: 4px;
+  border-radius: 999px;
+}
+
+.theme-toggle__inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 4.125rem;
+  height: 2rem;
+  padding: 3px;
+  border-radius: 999px;
+  background: var(--toggle-track);
+  border: 1px solid var(--toggle-border);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.06),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.12),
+    0 2px 8px rgba(0, 0, 0, 0.15);
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+
+.theme-toggle:hover .theme-toggle__inner {
+  border-color: rgba(201, 169, 98, 0.38);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.08),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.1),
+    0 4px 14px rgba(0, 0, 0, 0.18);
+}
+
+.theme-toggle__glow {
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  z-index: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(201, 169, 98, 0.15),
+    transparent 40%,
+    transparent 60%,
+    rgba(120, 160, 220, 0.12)
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.theme-toggle:hover .theme-toggle__glow,
+.theme-toggle:focus-visible .theme-toggle__glow {
+  opacity: 1;
+}
+
+.theme-toggle__icons {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.35rem;
+  pointer-events: none;
+  z-index: 2;
+  direction: ltr;
+  gap: 0.15rem;
+}
+
+.theme-toggle__icon-slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 1.2rem;
+  min-height: 1.2rem;
+}
+
+.theme-toggle__svg {
+  display: block;
+  flex-shrink: 0;
+  overflow: visible;
+}
+
+/* —— Dark mode selected: moon clear, sun barely visible (inactive) —— */
+.theme-toggle--dark .theme-toggle__svg--sun {
+  color: rgba(255, 255, 255, 0.14);
+  opacity: 1;
+  filter: none;
+}
+
+.theme-toggle--dark .theme-toggle__svg--moon {
+  color: #9a7b3c;
+  opacity: 1;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.45));
+}
+
+/* —— Light mode selected: sun clear, moon muted —— */
+.theme-toggle--light .theme-toggle__svg--sun {
+  color: #a86a0a;
+  opacity: 1;
+  filter: drop-shadow(0 0.5px 0 rgba(255, 255, 255, 0.9));
+}
+
+.theme-toggle--light .theme-toggle__svg--moon {
+  color: #2a4258;
+  opacity: 0.78;
+  filter: none;
+}
+
+.theme-toggle__thumb {
+  position: absolute;
+  top: 50%;
+  left: 4px;
+  z-index: 1;
+  width: 1.375rem;
+  height: 1.375rem;
+  margin-top: calc(-0.6875rem);
+  border-radius: 50%;
+  background: linear-gradient(160deg, #fffef8 0%, #ebe4d6 55%, #d4caba 100%);
+  box-shadow: var(--toggle-thumb-shadow);
+  transition:
+    left 0.32s cubic-bezier(0.34, 1.35, 0.64, 1),
+    transform 0.2s ease,
+    background 0.25s ease;
+}
+
+.theme-toggle:active .theme-toggle__thumb {
+  transform: scale(0.94);
+}
+
+.theme-toggle--dark .theme-toggle__thumb {
+  left: calc(100% - 4px - 1.375rem);
+  background: linear-gradient(160deg, #2a3344 0%, #1a2230 45%, #121820 100%);
+  box-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.theme-toggle--light .theme-toggle__thumb {
+  background: linear-gradient(160deg, #fffef9 0%, #f0ebe0 100%);
+}
+
+@media (max-width: 520px) {
+  /* Android phone: slightly smaller header toggle */
+  html.platform-android .theme-toggle__inner {
+    width: 3.5rem;
+    height: 1.7rem;
+    padding: 2px;
+  }
+
+  html.platform-android .theme-toggle__icon-slot {
+    width: 1rem;
+    min-height: 1rem;
+  }
+
+  html.platform-android .theme-toggle__svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  html.platform-android .theme-toggle__thumb {
+    width: 1.15rem;
+    height: 1.15rem;
+    margin-top: calc(-0.575rem);
+    left: 3px;
+  }
+
+  html.platform-android .theme-toggle--dark .theme-toggle__thumb {
+    left: calc(100% - 3px - 1.15rem);
+  }
+
+  html.platform-android .theme-toggle__icons {
+    padding: 0 0.28rem;
+  }
+}

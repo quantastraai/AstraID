@@ -1,0 +1,173 @@
+.identity-progress {
+  position: absolute;
+  left: 1.25rem;
+  bottom: calc(2.85rem + env(safe-area-inset-bottom, 0px));
+  z-index: 5;
+  width: min(16.5rem, calc(100vw - 2.5rem));
+  pointer-events: none;
+  transition:
+    opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 0.45s;
+}
+
+.identity-progress--visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translate3d(0, 0, 0);
+}
+
+.identity-progress--hidden {
+  opacity: 0;
+  visibility: hidden;
+  transform: translate3d(0, 6px, 0);
+}
+
+.identity-progress__label {
+  margin: 0;
+  min-height: 1.1rem;
+  display: flex;
+  align-items: center;
+}
+
+.identity-progress__label-type {
+  font-family:
+    ui-monospace,
+    'Cascadia Code',
+    'Consolas',
+    'Courier New',
+    monospace;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--progress-label);
+}
+
+.identity-progress__label-placeholder {
+  visibility: hidden;
+  font-size: 0.6875rem;
+  line-height: 1.1;
+}
+
+.identity-progress__meter {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 0.45rem;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.identity-progress__meter--visible {
+  visibility: visible;
+}
+
+.identity-progress__track {
+  position: relative;
+  flex: 1;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--progress-track-bg);
+  border: 1px solid var(--progress-track-border);
+  overflow: hidden;
+}
+
+.identity-progress__fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  min-width: 0;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    var(--progress-fill-start) 0%,
+    var(--progress-fill-end) 100%
+  );
+  box-shadow: 0 0 10px var(--progress-glow);
+  transition: width 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.identity-progress__shine {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    transparent 100%
+  );
+  opacity: 0.55;
+  transition: width 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.identity-progress__percent {
+  flex-shrink: 0;
+  min-width: 2.35rem;
+  font-family:
+    ui-monospace,
+    'Cascadia Code',
+    'Consolas',
+    'Courier New',
+    monospace;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--progress-percent);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 520px) {
+  .identity-progress {
+    left: 1rem;
+    bottom: calc(8rem + env(safe-area-inset-bottom, 0px));
+    width: min(13.5rem, calc(100vw - 2.25rem));
+  }
+
+  .identity-progress__label {
+    min-height: 0.95rem;
+  }
+
+  .identity-progress__label-type,
+  .identity-progress__label-placeholder {
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+  }
+
+  .identity-progress__meter {
+    gap: 0.4rem;
+    margin-top: 0.3rem;
+  }
+
+  .identity-progress__track {
+    height: 4px;
+  }
+
+  .identity-progress__percent {
+    font-size: 0.6rem;
+    min-width: 1.85rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .identity-progress {
+    transition: none;
+  }
+
+  .identity-progress--hidden {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+
+  .identity-progress__fill,
+  .identity-progress__shine {
+    transition: none;
+  }
+}
