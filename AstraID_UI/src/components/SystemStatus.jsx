@@ -48,7 +48,8 @@ export function SystemStatus() {
       <span className="system-status__dot" aria-hidden />
       <div className="system-status__copy">
         <p className="system-status__label">
-          System Status: <span className="system-status__secure">Secure</span>
+          <span className="system-status__prefix">System Status: </span>
+          <span className="system-status__secure">Secure</span>
         </p>
         <p className="system-status__detail">
           <CheckIcon />

@@ -207,6 +207,7 @@ const INIT_PHASE_MS = 5000
 const TUNNEL_PHASE_MS = 5000
 const PROGRESS_NEXT_CLICKS = 4
 const PROGRESS_PER_NEXT = 100 / PROGRESS_NEXT_CLICKS
+const MOBILE_BREAKPOINT = '(max-width: 520px)'
 
 export function CreateIdentity({
   theme = 'dark',
@@ -237,6 +238,32 @@ export function CreateIdentity({
   const [showConfirmPasswordText, setShowConfirmPasswordText] = useState(false)
   const [showAesMessage, setShowAesMessage] = useState(false)
   const [aesMessageReady, setAesMessageReady] = useState(false)
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== 'undefined' && window.matchMedia(MOBILE_BREAKPOINT).matches,
+  )
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia(MOBILE_BREAKPOINT)
+    const handleChange = () => setIsMobile(mediaQuery.matches)
+    handleChange()
+    mediaQuery.addEventListener('change', handleChange)
+    return () => mediaQuery.removeEventListener('change', handleChange)
+  }, [])
+
+  useEffect(() => {
+    if (isMobile && entered) {
+      setShowSubtitle(true)
+      setShowButton(true)
+      setButtonReady(true)
+      return
+    }
+
+    if (!isMobile && entered && initPhase === 'idle') {
+      setShowSubtitle(true)
+      setShowButton(true)
+      setButtonReady(true)
+    }
+  }, [isMobile, entered, initPhase])
 
   useEffect(() => {
     onDraftChange?.({ name, email })
@@ -379,8 +406,11 @@ export function CreateIdentity({
   }
 
   const handleEncryptionComplete = useCallback(() => {
+    if (isMobile) {
+      onIdentityProgress?.(null)
+    }
     setFormStep('identity-provisioned')
-  }, [])
+  }, [isMobile, onIdentityProgress])
 
   function handleConfirmPasswordNext() {
     setFormStep('encryption-processing')
@@ -407,10 +437,10 @@ export function CreateIdentity({
   }, [showAesMessage])
 
   useEffect(() => {
-    if (formStep === 'identity-provisioned') {
+    if (formStep === 'identity-provisioned' && !isMobile) {
       onIdentityProgress?.(100)
     }
-  }, [formStep, onIdentityProgress])
+  }, [formStep, onIdentityProgress, isMobile])
 
   function renderActions() {
     if (initPhase === 'initializing') {
@@ -458,13 +488,7 @@ export function CreateIdentity({
           aria-label={BUTTON_TEXT}
           onClick={handleInitialize}
         >
-          <TypewriterText
-            text={BUTTON_TEXT}
-            speed={34}
-            startDelay={220}
-            className="create-identity-page__init-btn-type"
-            onComplete={() => setButtonReady(true)}
-          />
+          <span className="create-identity-page__init-btn-type">{BUTTON_TEXT}</span>
         </button>
       )
     }
@@ -714,33 +738,70 @@ export function CreateIdentity({
   const isNameEntry = initPhase === 'enter-name'
   const hideTopHeadings =
     formStep === 'encryption-processing' || formStep === 'identity-provisioned'
+  const showHeroIdle = initPhase === 'idle' && !hideTopHeadings
 
   return (
     <>
       <section
-        className={`create-identity-page${entered ? ' create-identity-page--entered' : ''}${isNameEntry ? ' create-identity-page--name-entry' : ''}${hideTopHeadings ? ' create-identity-page--encryption create-identity-page--provisioned' : ''}`}
+        className={`create-identity-page${entered ? ' create-identity-page--entered' : ''}${isNameEntry ? ' create-identity-page--name-entry' : ''}${hideTopHeadings ? ' create-identity-page--encryption create-identity-page--provisioned' : ''}${showHeroIdle ? ' create-identity-page--hero-idle' : ''}`}
         aria-labelledby={hideTopHeadings ? undefined : 'create-identity-heading'}
       >
+        {showHeroIdle ? (
+          <div className="create-identity-page__hero-stage" aria-hidden>
+            <div className="create-identity-page__center-glow">
+              <div className="create-identity-page__center-glow-rings">
+                <span className="create-identity-page__center-glow-ring" />
+                <span className="create-identity-page__center-glow-ring" />
+                <span className="create-identity-page__center-glow-ring" />
+                <span className="create-identity-page__center-glow-ring" />
+              </div>
+            </div>
+          </div>
+        ) : null}
         <header
-          className={`create-identity-page__intro${hideTopHeadings ? ' create-identity-page__intro--hidden' : ''}`}
+          className={`create-identity-page__intro${hideTopHeadings ? ' create-identity-page__intro--hidden' : ''}${showHeroIdle ? ' create-identity-page__intro--hero' : ''}${entered && showHeroIdle ? ' create-identity-page__intro--hero-entered' : ''}`}
         >
           <h1 id="create-identity-heading" className="create-identity-page__title">
-            <TypewriterText
-              text={TITLE_TEXT}
-              speed={38}
-              className="create-identity-page__title-type"
-              onComplete={() => setShowSubtitle(true)}
-            />
+            {showHeroIdle ? (
+              <span className="create-identity-page__title-type create-identity-page__title-type--stacked">
+                <span className="create-identity-page__title-line create-identity-page__title-line--lead">
+                  Create Your
+                </span>
+                <span className="create-identity-page__title-line create-identity-page__title-line--main">
+                  <span
+                    className="create-identity-page__title-word"
+                    style={{ '--hero-i': 0 }}
+                  >
+                    Secure
+                  </span>{' '}
+                  <span
+                    className="create-identity-page__title-word"
+                    style={{ '--hero-i': 1 }}
+                  >
+                    Digital
+                  </span>{' '}
+                  <span
+                    className="create-identity-page__title-word create-identity-page__title-word--accent"
+                    style={{ '--hero-i': 2 }}
+                  >
+                    Identity
+                  </span>
+                </span>
+              </span>
+            ) : (
+              <span className="create-identity-page__title-type">{TITLE_TEXT}</span>
+            )}
           </h1>
+          {showSubtitle ? <div className="create-identity-page__title-rule" aria-hidden /> : null}
           <p className="create-identity-page__subtitle">
             {showSubtitle ? (
-              <TypewriterText
-                text={SUBTITLE_TEXT}
-                speed={28}
-                startDelay={180}
-                className="create-identity-page__subtitle-type"
-                onComplete={() => setShowButton(true)}
-              />
+              showHeroIdle ? (
+                <span className="create-identity-page__subtitle-type create-identity-page__subtitle-type--hero">
+                  {SUBTITLE_TEXT}
+                </span>
+              ) : (
+                <span className="create-identity-page__subtitle-type">{SUBTITLE_TEXT}</span>
+              )
             ) : (
               <span className="create-identity-page__subtitle-placeholder" aria-hidden="true">
                 {SUBTITLE_TEXT}

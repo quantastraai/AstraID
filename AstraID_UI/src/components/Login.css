@@ -234,6 +234,18 @@
   .login__content {
     bottom: calc(2.55rem + env(safe-area-inset-bottom, 0px));
   }
+
+  .login__center:has(.login-intro:not(.login-intro--hero-mode)) {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    z-index: 2;
+    flex: none;
+    width: calc(100% - 2.5rem);
+    max-width: 22rem;
+    padding: 0;
+    transform: translate(-50%, -50%);
+  }
 }
 
 /* Secure Access transition — must paint above page, below auth panel (z-index 6) */

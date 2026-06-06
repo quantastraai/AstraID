@@ -126,13 +126,32 @@
 @media (max-width: 520px) {
   .identity-progress {
     left: 1rem;
-    bottom: calc(3.35rem + env(safe-area-inset-bottom, 0px));
-    width: calc(100vw - 2rem);
+    bottom: calc(8rem + env(safe-area-inset-bottom, 0px));
+    width: min(13.5rem, calc(100vw - 2.25rem));
+  }
+
+  .identity-progress__label {
+    min-height: 0.95rem;
+  }
+
+  .identity-progress__label-type,
+  .identity-progress__label-placeholder {
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+  }
+
+  .identity-progress__meter {
+    gap: 0.4rem;
+    margin-top: 0.3rem;
+  }
+
+  .identity-progress__track {
+    height: 4px;
   }
 
   .identity-progress__percent {
-    font-size: 0.6875rem;
-    min-width: 2.1rem;
+    font-size: 0.6rem;
+    min-width: 1.85rem;
   }
 }
 

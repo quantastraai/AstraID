@@ -135,3 +135,12 @@ body {
   position: relative;
   z-index: 1;
 }
+
+/* iOS Safari zooms focused inputs below 16px — keep mobile fields at 16px */
+@media (max-width: 520px) {
+  input:not([type='checkbox']):not([type='radio']):not([type='range']):not([type='hidden']):not([type='submit']):not([type='button']):not([type='file']),
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}

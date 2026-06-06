@@ -80,7 +80,12 @@
   .project-credit {
     flex-direction: column;
     align-items: stretch;
-    gap: 0.4rem;
+    gap: 0.15rem;
+    padding-bottom: max(0.35rem, env(safe-area-inset-bottom, 0px));
+  }
+
+  .app-shell:has(.login) .project-credit {
+    gap: 0.15rem;
   }
 
   .project-credit__links {
@@ -89,5 +94,17 @@
 
   .project-credit__rights {
     text-align: center;
+    line-height: 1.2;
+    font-size: 0.5625rem;
+  }
+
+  .project-credit__link {
+    font-size: 0.5625rem;
+    letter-spacing: 0.03em;
+  }
+
+  .project-credit__sep {
+    font-size: 0.5625rem;
+    margin: 0 0.3rem;
   }
 }

@@ -159,6 +159,32 @@
   font-weight: 700;
 }
 
+@media (max-width: 520px) {
+  .login-intro:not(.login-intro--hero-mode) {
+    width: 100%;
+    max-width: none;
+    min-height: 0;
+  }
+
+  .login-intro:not(.login-intro--hero-mode) .login-intro__panel {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .login-intro:not(.login-intro--hero-mode) .login-intro__line {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+  }
+
+  .login-intro:not(.login-intro--hero-mode) .login-intro__type {
+    font-size: clamp(0.58rem, 2.5vw, 0.68rem);
+    letter-spacing: 0.07em;
+    text-align: center;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .login-intro--hero-exit {
     opacity: 0;

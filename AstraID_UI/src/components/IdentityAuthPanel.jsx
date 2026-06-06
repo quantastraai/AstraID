@@ -259,6 +259,7 @@ export function IdentityAuthPanel({
   onIdentityDetectReset,
   identityDetectedComplete = false,
   onAuthenticate,
+  onProceedStart,
 }) {
   const [titleDone, setTitleDone] = useState(false)
   const [formStep, setFormStep] = useState('intro')
@@ -342,6 +343,7 @@ export function IdentityAuthPanel({
   }, [showAesMessage])
 
   function handleProceed() {
+    onProceedStart?.()
     setFormStep('name')
     setShowNameFields(false)
   }
@@ -674,25 +676,27 @@ export function IdentityAuthPanel({
   const body = (
     <>
       <header className="identity-auth-panel__head">
-        <AuthShieldIcon />
         <div className="identity-auth-panel__titles">
-          <h2 className="identity-auth-panel__title">
-            {visible ? (
-              <TypewriterText
-                key="auth-panel-title"
-                text={TITLE_TEXT}
-                speed={26}
-                startDelay={280}
-                className="identity-auth-panel__title-type"
-                onComplete={() => setTitleDone(true)}
-                showCursor
-              />
-            ) : (
-              <span className="identity-auth-panel__title-placeholder" aria-hidden="true">
-                {TITLE_TEXT}
-              </span>
-            )}
-          </h2>
+          <div className="identity-auth-panel__title-row">
+            <AuthShieldIcon />
+            <h2 className="identity-auth-panel__title">
+              {visible ? (
+                <TypewriterText
+                  key="auth-panel-title"
+                  text={TITLE_TEXT}
+                  speed={26}
+                  startDelay={280}
+                  className="identity-auth-panel__title-type"
+                  onComplete={() => setTitleDone(true)}
+                  showCursor
+                />
+              ) : (
+                <span className="identity-auth-panel__title-placeholder" aria-hidden="true">
+                  {TITLE_TEXT}
+                </span>
+              )}
+            </h2>
+          </div>
           <p
             className={`identity-auth-panel__subtitle${titleDone ? ' identity-auth-panel__subtitle--visible' : ''}`}
           >

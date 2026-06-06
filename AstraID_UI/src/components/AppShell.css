@@ -160,6 +160,38 @@
   z-index: 10;
 }
 
+@media (max-width: 520px) {
+  .brand-bar--with-id-icon {
+    flex-wrap: wrap;
+    align-items: center;
+    row-gap: 0.35rem;
+    padding-top: 0.55rem;
+    padding-bottom: 0.4rem;
+  }
+
+  .brand-bar--with-id-icon .brand-bar__center {
+    position: static;
+    left: auto;
+    top: auto;
+    transform: none;
+    order: 10;
+    flex: 0 0 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 0.1rem;
+    pointer-events: none;
+  }
+
+  .brand-bar--with-id-icon .brand-bar__header-icons {
+    gap: 1.15rem;
+  }
+
+  .brand-bar--with-id-icon .brand-logo-wrap {
+    max-width: min(46vw, 142px);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .app-shell__card-backdrop,
   .brand-bar__id-icon,

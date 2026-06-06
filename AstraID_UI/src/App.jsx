@@ -140,6 +140,10 @@ function App() {
   const [identityPercent, setIdentityPercent] = useState(0)
 
   function handleIdentityProgress(percent) {
+    if (percent === null) {
+      setShowIdentityProgress(false)
+      return
+    }
     setShowIdentityProgress(true)
     setIdentityPercent(percent)
   }

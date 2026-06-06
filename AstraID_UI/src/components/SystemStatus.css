@@ -101,16 +101,20 @@
 
 @media (max-width: 520px) {
   .system-status {
-    padding: 0.45rem 0.7rem;
+    padding: 0.4rem 0.65rem;
     border-radius: 14px;
+    gap: 0.4rem;
   }
 
-  .system-status__shield {
+  .system-status__shield,
+  .system-status__prefix,
+  .system-status__detail {
     display: none;
   }
 
-  .system-status__detail span {
-    display: none;
+  .system-status__label {
+    font-size: 0.6875rem;
+    line-height: 1;
   }
 }
 

@@ -46,15 +46,24 @@ export function LastSecureAccess() {
       <p className="last-access__text">
         <span className="last-access__label">Last secure access:</span>
         <span className="last-access__meta">
-          {ACCESS_LOCATION}
-          <span className="last-access__sep" aria-hidden>
-            •
+          <span className="last-access__location">
+            <span className="last-access__location-icon" aria-hidden>
+              <LocationIcon />
+            </span>
+            {ACCESS_LOCATION}
           </span>
-          {ACCESS_BROWSER}
-          <span className="last-access__sep" aria-hidden>
-            •
+          <span className="last-access__browser">
+            <span className="last-access__sep" aria-hidden>
+              •
+            </span>
+            {ACCESS_BROWSER}
           </span>
-          {ACCESS_TIME}
+          <span className="last-access__time">
+            <span className="last-access__sep" aria-hidden>
+              •
+            </span>
+            {ACCESS_TIME}
+          </span>
         </span>
       </p>
     </div>
