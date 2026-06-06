@@ -568,6 +568,30 @@
   }
 }
 
+@keyframes login-hero-subtitle-reveal-android {
+  0% {
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);
+    transform: translateX(-0.35rem);
+    filter: blur(3px);
+    letter-spacing: 0.2em;
+  }
+
+  60% {
+    opacity: 1;
+    filter: blur(0);
+  }
+
+  100% {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+    transform: translateX(0);
+    filter: blur(0);
+    letter-spacing: 0.12em;
+    color: var(--status-detail);
+  }
+}
+
 @media (max-width: 520px) {
   .login-hero__actions {
     top: calc(46% + 0.9rem);
@@ -590,6 +614,40 @@
 
   .login-hero__secure-btn-arrow {
     flex-shrink: 0;
+  }
+
+  /* Android phone: larger title, smaller subtitle below, avoid button overlap */
+  html.platform-android .login-hero__head {
+    top: 11%;
+  }
+
+  html.platform-android .login-hero__title {
+    white-space: nowrap;
+    font-size: clamp(0.82rem, 3.4vw, 1rem);
+    letter-spacing: 0.05em;
+    line-height: 1.2;
+  }
+
+  html.platform-android .login-hero__rule {
+    margin: 0.38rem auto 0.42rem;
+  }
+
+  html.platform-android .login-hero__subtitle-text {
+    font-size: clamp(0.52rem, 1.85vw, 0.625rem);
+    letter-spacing: 0.12em;
+    line-height: 1.3;
+  }
+
+  html.platform-android .login-hero--visible .login-hero__subtitle-text {
+    animation: login-hero-subtitle-reveal-android 1.05s cubic-bezier(0.16, 1, 0.3, 1) 0.95s forwards;
+  }
+
+  html.platform-android .login-hero__actions {
+    top: calc(42% + 1.55rem);
+  }
+
+  html.platform-android .login-hero__footnote {
+    top: calc(46% + 1.55rem + 1.65rem);
   }
 }
 

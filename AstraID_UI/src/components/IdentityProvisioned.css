@@ -202,3 +202,84 @@
     display: none;
   }
 }
+
+@media (max-width: 520px) {
+  /* Android phone: provisioned card — match post-login Astra ID dimensions */
+  html.platform-android .identity-provisioned {
+    width: 100%;
+    max-width: min(20rem, 92vw);
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html.platform-android .identity-provisioned__success {
+    margin-bottom: 1.75rem;
+  }
+
+  html.platform-android .identity-provisioned__card-slot {
+    width: 100%;
+  }
+
+  html.platform-android .identity-provisioned .astra-identity-card {
+    width: 100%;
+    max-width: min(20rem, 92vw);
+    border-radius: 14px;
+  }
+
+  html.platform-android .identity-provisioned .astra-identity-card__inner {
+    padding: 0.72rem 0.95rem 0.78rem;
+    border-radius: 13px;
+  }
+
+  html.platform-android .identity-provisioned .astra-identity-card__head {
+    margin-bottom: 0.42rem;
+  }
+
+  html.platform-android .identity-provisioned .astra-identity-card__logo-wrap {
+    height: 1.1rem;
+    max-width: 3.75rem;
+  }
+
+  html.platform-android .identity-provisioned .astra-identity-card__chip {
+    width: 1.6rem;
+    height: 1.1rem;
+  }
+
+  html.platform-android .identity-provisioned .astra-identity-card__id {
+    margin-bottom: 0.55rem;
+    font-size: clamp(0.84rem, 3.5vw, 1rem);
+    letter-spacing: 0.1em;
+    line-height: 1.15;
+  }
+
+  html.platform-android .identity-provisioned .astra-identity-card__meta {
+    gap: 0.28rem;
+  }
+
+  html.platform-android .identity-provisioned .astra-identity-card__row {
+    grid-template-columns: 3.75rem 1fr;
+    gap: 0.32rem;
+    font-size: 0.5rem;
+    letter-spacing: 0.03em;
+  }
+
+  html.platform-android .identity-provisioned .astra-identity-card__row dd {
+    line-height: 1.25;
+  }
+
+  html.platform-android .identity-provisioned .astra-identity-card__row:nth-child(2) dd {
+    font-size: 0.46rem;
+    letter-spacing: 0.015em;
+  }
+
+  html.platform-android .identity-provisioned__workspace-btn {
+    margin-top: 1.25rem;
+    padding: 0.7rem 1.25rem;
+  }
+
+  html.platform-android .identity-provisioned__workspace-btn-type {
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+  }
+}

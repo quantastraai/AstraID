@@ -2,11 +2,41 @@
 <html lang="gu">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script>
+      (function () {
+        try {
+          var k = 'astraid-theme'
+          var t = localStorage.getItem(k)
+          if (t === 'light' || t === 'dark') {
+            document.documentElement.setAttribute('data-theme', t)
+          } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+            document.documentElement.setAttribute('data-theme', 'light')
+          }
+        } catch (e) {}
+      })()
+      ;(function () {
+        try {
+          var ua = navigator.userAgent || ''
+          if (/Android/i.test(ua) && /Mobile/i.test(ua)) {
+            document.documentElement.classList.add('platform-android')
+          } else if (/iPhone|iPod/i.test(ua)) {
+            document.documentElement.classList.add('platform-ios')
+          }
+        } catch (e) {}
+      })()
+    </script>
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AstraID</title>
-    <script type="module" crossorigin src="/assets/index-CMy63j49.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-BdACx8Kj.css">
+    <meta name="author" content="QuantAstraAI" />
+    <meta
+      name="description"
+      content="Astra ID — secure identity platform created by QuantAstraAI"
+    />
+    <meta name="application-name" content="Astra ID" />
+    <title>Astra ID · QuantAstraAI</title>
+    <script type="module" crossorigin src="/assets/index-DOxbvQkf.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-GjmQI-yW.css">
   </head>
   <body>
     <div id="root"></div>

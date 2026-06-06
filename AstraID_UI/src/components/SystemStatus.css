@@ -116,6 +116,23 @@
     font-size: 0.6875rem;
     line-height: 1;
   }
+
+  /* Android phone: slightly smaller Secure badge */
+  html.platform-android .system-status {
+    padding: 0.32rem 0.52rem;
+    border-radius: 12px;
+    gap: 0.32rem;
+  }
+
+  html.platform-android .system-status__dot {
+    width: 0.38rem;
+    height: 0.38rem;
+    margin-right: 0.06rem;
+  }
+
+  html.platform-android .system-status__label {
+    font-size: 0.625rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -159,6 +159,22 @@
     line-height: 1.2;
     white-space: nowrap;
   }
+
+  /* Android phone: trust badge horizontally centered */
+  html.platform-android .login-trust-carousel {
+    width: fit-content;
+    max-width: min(19rem, calc(100vw - 3rem));
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  html.platform-android .login__content,
+  html.platform-android .create-identity-page__content,
+  html.platform-android .identity-auth-view__trust {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -154,3 +154,37 @@
 .theme-toggle--light .theme-toggle__thumb {
   background: linear-gradient(160deg, #fffef9 0%, #f0ebe0 100%);
 }
+
+@media (max-width: 520px) {
+  /* Android phone: slightly smaller header toggle */
+  html.platform-android .theme-toggle__inner {
+    width: 3.5rem;
+    height: 1.7rem;
+    padding: 2px;
+  }
+
+  html.platform-android .theme-toggle__icon-slot {
+    width: 1rem;
+    min-height: 1rem;
+  }
+
+  html.platform-android .theme-toggle__svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  html.platform-android .theme-toggle__thumb {
+    width: 1.15rem;
+    height: 1.15rem;
+    margin-top: calc(-0.575rem);
+    left: 3px;
+  }
+
+  html.platform-android .theme-toggle--dark .theme-toggle__thumb {
+    left: calc(100% - 3px - 1.15rem);
+  }
+
+  html.platform-android .theme-toggle__icons {
+    padding: 0 0.28rem;
+  }
+}

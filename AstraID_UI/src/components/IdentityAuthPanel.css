@@ -936,6 +936,262 @@
   .identity-auth-panel__nav--otp-back {
     margin-top: 0.35rem;
   }
+
+  /* iPhone phone: larger title (1 row), smaller subtitle */
+  html.platform-ios .identity-auth-panel__title-type,
+  html.platform-ios .identity-auth-panel__title-placeholder {
+    font-size: clamp(0.78rem, 2.85vw, 0.9rem);
+    letter-spacing: 0.042em;
+    white-space: nowrap;
+  }
+
+  html.platform-ios .identity-auth-panel--clear .identity-auth-panel__title-type,
+  html.platform-ios .identity-auth-panel--clear .identity-auth-panel__title-placeholder {
+    font-size: clamp(0.8rem, 2.9vw, 0.92rem);
+  }
+
+  html.platform-ios .identity-auth-panel__subtitle {
+    font-size: clamp(0.56rem, 1.9vw, 0.625rem);
+    letter-spacing: 0.025em;
+    line-height: 1.32;
+  }
+
+  /* Android phone: icon top-center, larger title, smaller subtitle */
+  html.platform-android .identity-auth-panel__head {
+    align-items: center;
+  }
+
+  html.platform-android .identity-auth-panel__titles {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  html.platform-android .identity-auth-panel__title-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.45rem;
+    width: 100%;
+  }
+
+  html.platform-android .identity-auth-panel__icon {
+    width: 28px;
+    height: 28px;
+  }
+
+  html.platform-android .identity-auth-panel__title {
+    flex: none;
+    width: 100%;
+    text-align: center;
+  }
+
+  html.platform-android .identity-auth-panel__title-type,
+  html.platform-android .identity-auth-panel__title-placeholder {
+    font-size: clamp(0.66rem, 2.7vw, 0.8rem);
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  html.platform-android .identity-auth-panel--clear .identity-auth-panel__title-type,
+  html.platform-android .identity-auth-panel--clear .identity-auth-panel__title-placeholder {
+    font-size: clamp(0.68rem, 2.75vw, 0.82rem);
+  }
+
+  html.platform-android .identity-auth-panel__subtitle {
+    font-size: clamp(0.5rem, 1.85vw, 0.5625rem);
+    letter-spacing: 0.02em;
+    margin-top: 0.3rem;
+    line-height: 1.35;
+  }
+
+  /* Android phone: Secure Access dock panel — reduce overall height */
+  html.platform-android .identity-auth-panel--visible {
+    padding: 0 1rem max(0.9rem, env(safe-area-inset-bottom));
+  }
+
+  html.platform-android .identity-auth-panel--visible .identity-auth-panel__glass {
+    padding: 0.82rem 1rem 0.88rem;
+  }
+
+  html.platform-android .identity-auth-panel--visible .identity-auth-panel__title-row {
+    gap: 0.32rem;
+  }
+
+  html.platform-android .identity-auth-panel--visible .identity-auth-panel__icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  html.platform-android .identity-auth-panel--visible .identity-auth-panel__subtitle {
+    margin-top: 0.22rem;
+  }
+
+  html.platform-android .identity-auth-panel--visible.identity-auth-panel--action-slot-layout .identity-auth-panel__action-slot {
+    margin-top: 1.1rem;
+  }
+
+  html.platform-android .identity-auth-panel--visible .identity-auth-panel__intro-main {
+    gap: 0.55rem;
+  }
+
+  html.platform-android .identity-auth-panel--visible .identity-auth-panel__status {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+  html.platform-android .identity-auth-panel--visible .identity-auth-panel__continue {
+    padding: 0.58rem 0.85rem;
+  }
+
+  /* Android phone: center auth panel + enter-name form (input + button) */
+  html.platform-android .identity-auth-panel--clear .identity-auth-panel__surface {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  html.platform-android .identity-auth-panel--clear .identity-auth-panel__head {
+    justify-content: center;
+    width: 100%;
+  }
+
+  html.platform-android .identity-auth-panel--clear .identity-auth-panel__action-slot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  html.platform-android .identity-auth-panel__form {
+    width: 100%;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+  }
+
+  html.platform-android .identity-auth-panel__prompt {
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+  }
+
+  html.platform-android .identity-auth-panel__prompt-type {
+    text-align: center;
+  }
+
+  html.platform-android .identity-auth-panel__fields {
+    width: 100%;
+    align-items: center;
+  }
+
+  html.platform-android .identity-auth-panel__field-label {
+    width: 100%;
+    max-width: 14.25rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  html.platform-android .identity-auth-panel__input {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  html.platform-android .identity-auth-panel__next-btn {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Android phone: name/email/password steps — tighter panel, nav clears trust badge */
+  html.platform-android .identity-auth-view:has(#auth-identity-name) .identity-auth-panel__form,
+  html.platform-android .identity-auth-view:has(#auth-identity-email) .identity-auth-panel__form,
+  html.platform-android .identity-auth-view:has(#auth-identity-password) .identity-auth-panel__form {
+    margin-top: 0.45rem;
+  }
+
+  html.platform-android .identity-auth-view:has(#auth-identity-name) .identity-auth-panel__prompt,
+  html.platform-android .identity-auth-view:has(#auth-identity-email) .identity-auth-panel__prompt,
+  html.platform-android .identity-auth-view:has(#auth-identity-password) .identity-auth-panel__prompt {
+    min-height: 1.45rem;
+    padding-bottom: 0;
+  }
+
+  html.platform-android .identity-auth-view:has(#auth-identity-name) .identity-auth-panel__field-label,
+  html.platform-android .identity-auth-view:has(#auth-identity-email) .identity-auth-panel__field-label,
+  html.platform-android .identity-auth-view:has(#auth-identity-password) .identity-auth-panel__field-label {
+    margin-top: 0.5rem;
+  }
+
+  html.platform-android .identity-auth-view:has(#auth-identity-email) .identity-auth-panel__validation-slot,
+  html.platform-android .identity-auth-view:has(#auth-identity-password) .identity-auth-panel__validation-slot {
+    min-height: 1.1rem;
+    margin-top: 0.45rem;
+  }
+
+  html.platform-android .identity-auth-view:has(#auth-identity-email) .identity-auth-panel__nav,
+  html.platform-android .identity-auth-view:has(#auth-identity-password) .identity-auth-panel__nav {
+    margin-top: 0.45rem;
+    margin-bottom: 0.5rem;
+  }
+
+  html.platform-android .identity-auth-view:has(#auth-identity-name) .identity-auth-panel__subtitle,
+  html.platform-android .identity-auth-view:has(#auth-identity-email) .identity-auth-panel__subtitle,
+  html.platform-android .identity-auth-view:has(#auth-identity-password) .identity-auth-panel__subtitle {
+    margin-top: 0.22rem;
+  }
+
+  html.platform-android .identity-auth-view:has(#auth-identity-name) .identity-auth-panel__next-btn {
+    margin-bottom: 0.5rem;
+  }
+
+  html.platform-android .identity-auth-view:has(#auth-identity-password) .identity-auth-panel__aes-message {
+    margin: 0;
+    padding: 0;
+  }
+
+  html.platform-android .identity-auth-view:has(#auth-identity-password) .identity-auth-panel__nav {
+    margin-bottom: 0.65rem;
+  }
+
+  /* Android phone: OTP step — tighter panel, Authenticate/back nav clears trust badge */
+  html.platform-android .identity-auth-view:has(.identity-auth-panel__otp-row) .identity-auth-panel__form {
+    margin-top: 0.45rem;
+  }
+
+  html.platform-android .identity-auth-view:has(.identity-auth-panel__otp-row) .identity-auth-panel__prompt {
+    min-height: 1.45rem;
+    padding-bottom: 0;
+  }
+
+  html.platform-android .identity-auth-view:has(.identity-auth-panel__otp-row) .identity-auth-panel__subtitle {
+    margin-top: 0.22rem;
+  }
+
+  html.platform-android .identity-auth-view:has(.identity-auth-panel__otp-row) .identity-auth-panel__otp-row {
+    gap: 0.28rem;
+    margin-top: 0.5rem;
+  }
+
+  html.platform-android .identity-auth-view:has(.identity-auth-panel__otp-row) .identity-auth-panel__otp-box {
+    width: 1.65rem;
+    height: 1.95rem;
+    font-size: 0.8125rem;
+  }
+
+  html.platform-android .identity-auth-view:has(.identity-auth-panel__otp-row) .identity-auth-panel__authenticate-btn {
+    max-width: 14.25rem;
+    margin-top: 0.65rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0.58rem 0.75rem;
+  }
+
+  html.platform-android .identity-auth-view:has(.identity-auth-panel__otp-row) .identity-auth-panel__nav--otp-back {
+    margin-top: 0.45rem;
+    margin-bottom: 0.75rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

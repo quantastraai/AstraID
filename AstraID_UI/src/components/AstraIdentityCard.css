@@ -379,3 +379,68 @@
     animation: none;
   }
 }
+
+@media (max-width: 520px) {
+  /* Android phone: iPhone-matched card — single column, same proportions */
+  html.platform-android .astra-identity-card {
+    width: 100%;
+    max-width: min(20rem, calc(100vw - 2.5rem));
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 14px;
+    box-shadow:
+      0 12px 40px rgba(0, 0, 0, 0.35),
+      0 0 24px rgba(201, 169, 98, 0.18);
+  }
+
+  html.platform-android .astra-identity-card__inner {
+    padding: 1rem 1.1rem 1.05rem;
+    border-radius: 13px;
+  }
+
+  html.platform-android .astra-identity-card__head {
+    margin-bottom: 0.65rem;
+  }
+
+  html.platform-android .astra-identity-card__logo-wrap {
+    height: 1.25rem;
+    max-width: 4.25rem;
+  }
+
+  html.platform-android .astra-identity-card__chip {
+    width: 1.75rem;
+    height: 1.25rem;
+  }
+
+  html.platform-android .astra-identity-card__id {
+    margin-bottom: 0.85rem;
+    font-size: clamp(0.92rem, 3.85vw, 1.1rem);
+    letter-spacing: 0.11em;
+    line-height: 1.2;
+  }
+
+  html.platform-android .astra-identity-card__meta {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
+
+  html.platform-android .astra-identity-card__row {
+    grid-template-columns: 4rem 1fr;
+    gap: 0.45rem;
+    font-size: 0.54rem;
+    letter-spacing: 0.035em;
+    align-items: baseline;
+  }
+
+  html.platform-android .astra-identity-card__row dd {
+    line-height: 1.35;
+    text-align: right;
+    word-break: break-word;
+  }
+
+  html.platform-android .astra-identity-card__row:nth-child(2) dd {
+    font-size: 0.5rem;
+    letter-spacing: 0.02em;
+  }
+}

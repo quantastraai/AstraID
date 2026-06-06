@@ -667,6 +667,236 @@
     font-size: 0.40625rem;
     line-height: 1.2;
   }
+
+  /* Android phone: compact identity scan + terminal */
+  html.platform-android .identity-auth-view .login-scan-panel--auth {
+    gap: 0.22rem;
+    width: min(8rem, 56vw);
+    max-width: 8rem;
+  }
+
+  html.platform-android .identity-auth-view .login-scan-panel--auth .login-scan-visual__frame {
+    width: 5.5rem;
+    max-width: 5.5rem;
+  }
+
+  html.platform-android .identity-auth-view .login-scan-panel--auth .login-scan-visual__face-stage {
+    padding: 0.16rem 0.18rem;
+  }
+
+  html.platform-android .identity-auth-view .login-scan-panel--auth .login-scan-visual__label {
+    margin-top: 0.14rem;
+    font-size: 0.375rem;
+    letter-spacing: 0.07em;
+  }
+
+  html.platform-android .identity-auth-view .login-scan-panel--auth .login-scan-visual__label-dot {
+    width: 2px;
+    height: 2px;
+  }
+
+  html.platform-android .identity-auth-view .login-scan-panel--auth .login-scan-terminal {
+    max-width: 8rem;
+  }
+
+  html.platform-android .identity-auth-view .login-scan-panel--auth .login-scan-terminal__head {
+    padding: 0.16rem 0.28rem;
+  }
+
+  html.platform-android .identity-auth-view .login-scan-panel--auth .login-scan-terminal__dot {
+    width: 0.26rem;
+    height: 0.26rem;
+  }
+
+  html.platform-android .identity-auth-view .login-scan-panel--auth .login-scan-terminal__head-label {
+    font-size: 0.375rem;
+  }
+
+  html.platform-android .identity-auth-view .login-scan-panel--auth .login-scan-terminal__body {
+    height: 2rem;
+    padding: 0.14rem 0.22rem 0.16rem;
+  }
+
+  html.platform-android .identity-auth-view .login-scan-panel--auth .login-scan-terminal__line {
+    margin-bottom: 0.05rem;
+    font-size: 0.375rem;
+    line-height: 1.15;
+  }
+
+  /* Android phone: fix scan clip + center column drifting right */
+  html.platform-android .identity-auth-view {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    flex: 1;
+    min-height: 0;
+  }
+
+  html.platform-android .identity-auth-view__layout {
+    width: 100%;
+    max-width: 100%;
+    padding-left: max(0.75rem, env(safe-area-inset-left, 0px));
+    padding-right: max(0.75rem, env(safe-area-inset-right, 0px));
+    box-sizing: border-box;
+  }
+
+  html.platform-android .identity-auth-view__layout:has(.identity-auth-view__left--scan-visible) {
+    align-items: center;
+  }
+
+  html.platform-android .identity-auth-view__left,
+  html.platform-android .identity-auth-view__center {
+    width: 100%;
+    max-width: min(16.5rem, calc(100vw - 1.5rem - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px)));
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 0;
+    padding-right: 0;
+    box-sizing: border-box;
+  }
+
+  html.platform-android .identity-auth-view__left--scan-visible {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  html.platform-android .identity-auth-view__scan-stage {
+    width: fit-content;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    overflow: visible;
+  }
+
+  html.platform-android .identity-auth-view__left--scan-visible .identity-auth-view__scan-stage {
+    padding-right: 0.35rem;
+  }
+
+  html.platform-android .identity-auth-view .login-scan-panel--auth {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  html.platform-android .identity-auth-view__center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+
+  html.platform-android .identity-auth-view__layout:not(:has(.identity-auth-view__left--scan-visible)) .identity-auth-view__center {
+    width: min(16.5rem, calc(100vw - 1.5rem - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px)));
+  }
+
+  html.platform-android .identity-auth-view__center .identity-auth-panel--clear {
+    width: 100%;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  html.platform-android .identity-auth-view__card-chip {
+    top: -0.05rem;
+    right: -0.9rem;
+  }
+
+  /* Android phone: scan + panel stack — tighter gap */
+  html.platform-android .identity-auth-view__layout:has(.identity-auth-view__left--scan-visible) {
+    gap: 0.32rem;
+  }
+
+  /* Android phone: name/email/password/otp steps — compact scan/panel, clear trust badge overlap */
+  html.platform-android .identity-auth-view__layout:has(.identity-auth-view__left--scan-visible):has(#auth-identity-name),
+  html.platform-android .identity-auth-view__layout:has(.identity-auth-view__left--scan-visible):has(#auth-identity-email),
+  html.platform-android .identity-auth-view__layout:has(.identity-auth-view__left--scan-visible):has(#auth-identity-password),
+  html.platform-android .identity-auth-view__layout:has(.identity-auth-view__left--scan-visible):has(.identity-auth-panel__otp-row) {
+    flex: 1;
+    min-height: 0;
+    justify-content: flex-start;
+    gap: 0.26rem;
+    padding-top: 0.2rem;
+    padding-bottom: calc(10rem + env(safe-area-inset-bottom, 0px));
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  html.platform-android .identity-auth-view__layout:has(#auth-identity-name) .login-scan-panel--auth,
+  html.platform-android .identity-auth-view__layout:has(#auth-identity-email) .login-scan-panel--auth,
+  html.platform-android .identity-auth-view__layout:has(#auth-identity-password) .login-scan-panel--auth,
+  html.platform-android .identity-auth-view__layout:has(.identity-auth-panel__otp-row) .login-scan-panel--auth {
+    gap: 0.14rem;
+    width: min(7rem, 50vw);
+    max-width: 7rem;
+  }
+
+  html.platform-android .identity-auth-view__layout:has(#auth-identity-name) .login-scan-panel--auth .login-scan-visual__frame,
+  html.platform-android .identity-auth-view__layout:has(#auth-identity-email) .login-scan-panel--auth .login-scan-visual__frame,
+  html.platform-android .identity-auth-view__layout:has(#auth-identity-password) .login-scan-panel--auth .login-scan-visual__frame,
+  html.platform-android .identity-auth-view__layout:has(.identity-auth-panel__otp-row) .login-scan-panel--auth .login-scan-visual__frame {
+    width: 4.75rem;
+    max-width: 4.75rem;
+  }
+
+  html.platform-android .identity-auth-view__layout:has(#auth-identity-name) .login-scan-panel--auth .login-scan-visual__face-stage,
+  html.platform-android .identity-auth-view__layout:has(#auth-identity-email) .login-scan-panel--auth .login-scan-visual__face-stage,
+  html.platform-android .identity-auth-view__layout:has(#auth-identity-password) .login-scan-panel--auth .login-scan-visual__face-stage,
+  html.platform-android .identity-auth-view__layout:has(.identity-auth-panel__otp-row) .login-scan-panel--auth .login-scan-visual__face-stage {
+    padding: 0.12rem 0.14rem;
+  }
+
+  html.platform-android .identity-auth-view__layout:has(#auth-identity-name) .login-scan-panel--auth .login-scan-visual__label,
+  html.platform-android .identity-auth-view__layout:has(#auth-identity-email) .login-scan-panel--auth .login-scan-visual__label,
+  html.platform-android .identity-auth-view__layout:has(#auth-identity-password) .login-scan-panel--auth .login-scan-visual__label,
+  html.platform-android .identity-auth-view__layout:has(.identity-auth-panel__otp-row) .login-scan-panel--auth .login-scan-visual__label {
+    margin-top: 0.1rem;
+    font-size: 0.34375rem;
+  }
+
+  html.platform-android .identity-auth-view__layout:has(#auth-identity-name) .login-scan-panel--auth .login-scan-terminal,
+  html.platform-android .identity-auth-view__layout:has(#auth-identity-email) .login-scan-panel--auth .login-scan-terminal,
+  html.platform-android .identity-auth-view__layout:has(#auth-identity-password) .login-scan-panel--auth .login-scan-terminal,
+  html.platform-android .identity-auth-view__layout:has(.identity-auth-panel__otp-row) .login-scan-panel--auth .login-scan-terminal {
+    max-width: 7rem;
+  }
+
+  html.platform-android .identity-auth-view__layout:has(#auth-identity-name) .login-scan-panel--auth .login-scan-terminal__body,
+  html.platform-android .identity-auth-view__layout:has(#auth-identity-email) .login-scan-panel--auth .login-scan-terminal__body,
+  html.platform-android .identity-auth-view__layout:has(#auth-identity-password) .login-scan-panel--auth .login-scan-terminal__body,
+  html.platform-android .identity-auth-view__layout:has(.identity-auth-panel__otp-row) .login-scan-panel--auth .login-scan-terminal__body {
+    height: 1.65rem;
+    padding: 0.1rem 0.18rem 0.12rem;
+  }
+
+  html.platform-android .identity-auth-view__layout:has(#auth-identity-name) .login-scan-panel--auth .login-scan-terminal__line,
+  html.platform-android .identity-auth-view__layout:has(#auth-identity-email) .login-scan-panel--auth .login-scan-terminal__line,
+  html.platform-android .identity-auth-view__layout:has(#auth-identity-password) .login-scan-panel--auth .login-scan-terminal__line,
+  html.platform-android .identity-auth-view__layout:has(.identity-auth-panel__otp-row) .login-scan-panel--auth .login-scan-terminal__line {
+    margin-bottom: 0.03rem;
+    font-size: 0.34375rem;
+    line-height: 1.1;
+  }
+
+  html.platform-android .identity-auth-view__layout:has(#auth-identity-name) .identity-auth-view__center,
+  html.platform-android .identity-auth-view__layout:has(#auth-identity-email) .identity-auth-view__center,
+  html.platform-android .identity-auth-view__layout:has(#auth-identity-password) .identity-auth-view__center,
+  html.platform-android .identity-auth-view__layout:has(.identity-auth-panel__otp-row) .identity-auth-view__center {
+    flex-shrink: 0;
+    padding-bottom: 0.25rem;
+  }
+
+  /* Android phone: password step — extra bottom room for AES message + nav */
+  html.platform-android .identity-auth-view__layout:has(.identity-auth-view__left--scan-visible):has(#auth-identity-password) {
+    padding-bottom: calc(10.75rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  /* Android phone: OTP step — extra bottom room for digit row + Authenticate + back nav */
+  html.platform-android .identity-auth-view__layout:has(.identity-auth-view__left--scan-visible):has(.identity-auth-panel__otp-row) {
+    padding-bottom: calc(11.25rem + env(safe-area-inset-bottom, 0px));
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
